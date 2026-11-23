@@ -15,22 +15,16 @@ internal static class Launcher
     private static int Main(string[] args)
     {
         string root = AppDomain.CurrentDomain.BaseDirectory;
-        string desktop = Path.Combine(root, "desktop");
-        string electron = Path.Combine(desktop, "node_modules", "electron", "dist", "electron.exe");
+        string launcher = Path.Combine(root, "start_desktop.bat");
         bool check = args.Length == 1 && args[0] == "--check";
         try
         {
-            if (!File.Exists(electron) || !File.Exists(Path.Combine(desktop, "entry.cjs")))
-                throw new FileNotFoundException("找不到桌面程序。请将 LuminaUI.exe 保留在 Comfy UI 文件夹中，与 desktop 文件夹放在一起。");
-            if (!File.Exists(Path.Combine(root, ".venv", "Scripts", "python.exe")))
-                throw new FileNotFoundException("找不到本地 Python 环境，请检查 .venv 文件夹。");
+            if (!File.Exists(launcher) || !File.Exists(Path.Combine(root, "Start-Lumina.ps1")))
+                throw new FileNotFoundException("Extract the entire LuminaUI folder before starting.");
             if (check) return 0;
-            var start = new ProcessStartInfo(electron, "\"" + desktop + "\"");
-            start.WorkingDirectory = desktop;
-            // Launch as a normal desktop application, without hidden-window flags.
-            Environment.SetEnvironmentVariable("ELECTRON_RUN_AS_NODE", null);
+            var start = new ProcessStartInfo(launcher);
+            start.WorkingDirectory = root;
             start.UseShellExecute = true;
-            start.WindowStyle = ProcessWindowStyle.Normal;
             using (Process process = Process.Start(start)) { }
             return 0;
         }

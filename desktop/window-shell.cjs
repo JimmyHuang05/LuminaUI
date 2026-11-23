@@ -25,7 +25,7 @@ function createShell({title='LuminaUI',partition,preview=false,loadTab}={}){
   function resize(){if(win.isDestroyed())return;const [width,height]=win.getContentSize();for(const tab of entry.tabs)tab.view.setBounds({x:0,y:BAR_HEIGHT,width,height:Math.max(0,height-BAR_HEIGHT)});}
   function load(tab,url){
     tab.loaded=true;
-    Promise.resolve(loadTab?.(win,tab.view.webContents,tab.id,url||'http://127.0.0.1:8190'+tab.route,tab.page)).catch(error=>{tab.loaded=false;if(!win.isDestroyed())showAppDialog(win,{type:'error',message:'页面加载失败',detail:error.message});});
+    Promise.resolve(loadTab?.(win,tab.view.webContents,tab.id,url||'http://127.0.0.1:18290'+tab.route,tab.page)).catch(error=>{tab.loaded=false;if(!win.isDestroyed())showAppDialog(win,{type:'error',message:'页面加载失败',detail:error.message});});
   }
   function activate(id,url){const tab=entry.tabs.find(t=>t.id===id);if(!tab)return;entry.active=id;entry.view=tab.view;win.contentWebContents=tab.view.webContents;for(const t of entry.tabs)t.view.setVisible(t===tab);resize();persist();sync();if(!tab.loaded)load(tab,url);else if(url)tab.view.webContents.loadURL(url);tab.view.webContents.focus();}
   for(const section of sections){
@@ -45,7 +45,7 @@ function createShell({title='LuminaUI',partition,preview=false,loadTab}={}){
   async function updateEngine(){
     if(win.isDestroyed())return;
     let state={online:false,queue:0,preview};
-    if(!preview)try{const response=await fetch('http://127.0.0.1:8190/api/status',{signal:AbortSignal.timeout(4500)});if(response.ok){const data=await response.json();state={online:!!data.online,queue:Number(data.queue)||0};}}catch{}
+    if(!preview)try{const response=await fetch('http://127.0.0.1:18290/api/status',{signal:AbortSignal.timeout(4500)});if(response.ok){const data=await response.json();state={online:!!data.online,queue:Number(data.queue)||0};}}catch{}
     if(!win.isDestroyed()){win.webContents.send('engine-state',state);statusTimer=setTimeout(updateEngine,5000);}
   }
   win.webContents.once('did-finish-load',updateEngine);

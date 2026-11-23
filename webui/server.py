@@ -37,7 +37,7 @@ from regions import input_path, crop_reference, save_mask, mask_reference, compo
 ROOT=Path(__file__).resolve().parents[1]
 HERE=Path(__file__).parent
 DATA=storage_paths.path('data');DATA.mkdir(exist_ok=True)
-BACKEND='http://127.0.0.1:8188'
+BACKEND='http://127.0.0.1:18288'
 MANIFEST=json.loads((storage_paths.path('workflows')/'presets/manifest.json').read_text(encoding='utf-8'))
 PRESETS={p['id']:p for p in MANIFEST['presets']}
 CLIENT=uuid.uuid4().hex
@@ -208,7 +208,7 @@ async def cancel_generation(request):
         job.update(status='cancelled',finished=time.time());PROGRESS.pop(pid,None);PREVIEWS.pop(pid,None);save()
     return web.json_response(result)
 
-async def config(request):return web.json_response({'token':TOKEN,'workflow_controls':app_settings.schema(),'presets':[{'id':p['id'],'label':p['label']} for p in PRESETS.values()]})
+async def config(request):return web.json_response({'edition':'qwen21','token':TOKEN,'workflow_controls':app_settings.schema(),'presets':[{'id':p['id'],'label':p['label']} for p in PRESETS.values()]})
 
 async def dashboard_summary(request):
     from dashboard import summarize
@@ -399,7 +399,9 @@ def combine_prompt_parts(body):
 
 async def generate(request):
     global LAST_ACTIVITY,RELEASED
-    body=request.get('krea_i2i_body') or await request.json();character_generation.route(body);preset=PRESETS[body['preset']]
+    body=request.get('krea_i2i_body') or await request.json()
+    if body['preset']=='01_text_to_image':body.setdefault('generation_model','qwen')
+    character_generation.route(body);preset=PRESETS[body['preset']]
     if 'krea_i2i_body' not in request:combine_prompt_parts(body)
     if body.get("character_card_id") and body["preset"] != "01_text_to_image" and not body.get("character_card_snapshot"):
         raise ValueError("人物卡请在文生图入口使用")
@@ -780,7 +782,8 @@ async def generate_krea(request,body,generation_loras_v2=None):
     if variant not in ('cutie','mix_v8') or generation_workflow in ('moody_krea2_4khd',krea_i2i.WORKFLOW):simple_mode='standard'
     if rain_city:simple_mode='standard'
     refine_scale=float(body.get('refine_scale',1.5)) if simple_mode!='standard' else 1.5
-    refine_strength=float(body.get('refine_strength',0.39 if variant=='mix_v8' else 0.33)) if simple_mode!='standard' else model_defaults.get('refine_strength',0.33)
+    default_strength=model_defaults.get('refine_strength',0.33)
+    refine_strength=float(body.get('refine_strength',default_strength)) if simple_mode!='standard' else default_strength
     if not 1.0<=refine_scale<=2.0:raise ValueError('细化倍率需要在 1.0 到 2.0 之间')
     if not 0.1<=refine_strength<=0.7:raise ValueError('细化强度需要在 0.1 到 0.7 之间')
     graph['4']['inputs']['prompt' if variant in ('qwen','ray') else 'text']=prompt
@@ -1017,31 +1020,7 @@ async def lifecycle(app):
     await asyncio.gather(*tasks,return_exceptions=True)
     await app['session'].close()
 
-def ensure_comfy():
-    import urllib.request
-    def ready():
-        try:urllib.request.urlopen(BACKEND+'/system_stats',timeout=2).close();return True
-        except Exception:return False
-    if ready():return
-    env=os.environ.copy()
-    for k,v in {'TEMP':'tmp','TMP':'tmp','HF_HOME':'cache/huggingface','TORCH_HOME':'cache/torch','XDG_CACHE_HOME':'cache','PIP_CACHE_DIR':'cache/pip'}.items():env[k]=str(ROOT/v)
-    log=open(DATA/'comfyui.log','a',encoding='utf-8')
-    subprocess.Popen([str(ROOT/'.venv/Scripts/python.exe'),'-X','utf8',str(ROOT/'ComfyUI/main.py'),'--listen','127.0.0.1','--port','8188','--preview-method','auto','--disable-async-offload','--reserve-vram',str(MEMORY['reserve_vram_gb']),'--vram-headroom',str(MEMORY['extra_headroom_gb'])]+storage_paths.engine_arguments(),cwd=ROOT,env=env,stdout=log,stderr=log,creationflags=subprocess.CREATE_NO_WINDOW if os.name=='nt' else 0)
-    print('正在启动 ComfyUI…',flush=True)
-    for _ in range(120):
-        if ready():return
-        time.sleep(1)
-    raise RuntimeError('ComfyUI 启动超时，请查看 webui/data/comfyui.log')
-
 if __name__=='__main__':
-    import urllib.request
-    try:
-        urllib.request.urlopen('http://127.0.0.1:8190/api/config',timeout=2).close()
-    except Exception:pass
-    else:
-        if '--desktop' not in sys.argv:webbrowser.open('http://127.0.0.1:8190')
-        sys.exit(0)
-    ensure_comfy()
     app=web.Application(middlewares=[guard],client_max_size=32*1024*1024)
     app.cleanup_ctx.append(lifecycle)
     app.router.add_get('/api/hardware',hardware)
@@ -1124,5 +1103,5 @@ if __name__=='__main__':
     app.add_routes([web.get('/',index),web.get('/api/config',config),web.get('/api/status',status),web.post('/api/upload',upload),web.post('/api/annotation',upload_annotation),web.post('/api/mask',upload_mask),web.post('/api/generate',generate),web.post('/api/enhance-edit',enhance_edit),web.post('/api/release',release),web.get('/image',image)])
     if '--open' in sys.argv:
         import threading
-        threading.Timer(1,lambda:webbrowser.open('http://127.0.0.1:8190')).start()
-    web.run_app(app,host='127.0.0.1',port=8190)
+        threading.Timer(1,lambda:webbrowser.open('http://127.0.0.1:18290/workbench')).start()
+    web.run_app(app,host='127.0.0.1',port=18290)

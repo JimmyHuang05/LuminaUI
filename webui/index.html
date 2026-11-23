@@ -952,18 +952,14 @@ window.addEventListener('creative-mode-change',()=>{if(['01_text_to_image','02_c
   promptsPanel.append(resourceTabs,promptContent,workflowContent,modelsPanel);
   function renderResourceWorkflows(){
     workflowList.replaceChildren();const query=workflowSearch.value.trim().toLowerCase();
-    const catalog=[
-      {id:'moody_krea2_rain_city',name:'雨城飞鸟 · Cutie',purpose:'参考工作流 · 基础版',models:['cutie'],modelLabel:'Krea2 · Moody Cutie',flow:'Cutie 生成 → VAE 解码 → 保存',tradeoff:'当前先搭建基础生成，尚未加入原图 LoRA、局部修复及胶片后期。',details:'独立工作流，可继续补齐原图的放大、人物修复和后期阶段；当前效果不等同于原图。'},
-      {id:'moody_krea2_simple',name:'Moody Krea2 Simple',purpose:'通用文生图 · 可选高清处理',models:['cutie','mix_v8'],modelLabel:'Krea2 · Moody Cutie / Moody Mix',flow:'基础生成 → 可选高清细化 → 可选 SeedVR2 放大',tradeoff:'基础模式适合快速试图；细化和放大会增加处理时间与显存开销。',details:'基础模式按所选分辨率输出。细化默认 1.5×，追加 4 步采样；放大模式输出为基础尺寸的 4×，需要 SeedVR2 放大模型。细化倍率与强度可在右侧调整。'},
-      {id:'moody_krea2_i2i_4khd',name:'Moody Krea2 图片重绘 4KHD',purpose:'自动反推 · 原图重绘',models:['cutie','mix_v8'],modelLabel:'Krea2 · Moody Cutie / Moody Mix',flow:'原图 → 本地 Qwen 反推 → 重绘 → 分块细化与修脸 → SeedVR2 3B',tradeoff:'人物卡或角色 LoRA 可选；变化程度控制原图保留。',details:'保持原图比例，长边 4096。文字要求可留空。使用本机 Qwen3.5 代替 Florence 反推，高清链路为本机适配版。'},
-      {id:'moody_krea2_4khd',name:'Moody Krea2 4KHD',purpose:'4K 精修 · 本机适配版',models:['cutie','mix_v8'],modelLabel:'Krea2 · Moody Cutie / Moody Mix',flow:'基础生成 → 2× 分块重绘 → 色彩匹配 → 自动修脸 → SeedVR2 3B',tradeoff:'多阶段精修耗时更长，支持人物卡与参考图片。',details:'长边 4096。分块重绘 3 步 / 0.15，修脸 8 步 / 0.2；双三次插值预放大，复用本机 SeedVR2 3B，不含手动涂抹分支。'},
-      {id:'moody_zit_simple',name:'Moody ZIT Simple',purpose:'双阶段文生图 · 潜空间细化',models:['pro_mix'],modelLabel:'ZIT · Moody Pro Mix',flow:'首阶段采样 → 1.7× 潜空间放大 → 二次采样',tradeoff:'适合需要细化输出的生成任务；固定双阶段处理，无法切换为 Krea2 的快速模式。',details:'输出宽高约为基础尺寸的 1.7×，按 8 像素对齐。两阶段共用所选种子，采样步数与 CFG 跟随右侧设置。需要 Moody Pro Mix 及其配套编码器、VAE。'},
-    ];
+    const catalog=[{id:'qwen',name:'Qwen-Image-2.1',purpose:'文字生图',models:['qwen'],modelLabel:'Qwen-Image-2.1',
+      flow:'文本编码 → 采样 → VAE 解码 → 保存',tradeoff:'使用本机 GPU 生成。',
+      details:'工作流随 LuminaUI 安装；首次启动自动准备主模型、文本编码器和 VAE。'}];
     const activeModel=document.getElementById('generation-model')?.value;
     for(const item of catalog){
       if(query&&!Object.values(item).join(' ').toLowerCase().includes(query))continue;
       const card=document.createElement('article');card.className='resource-workflow';
-      const current=mode==='01_text_to_image'&&item.models.includes(activeModel)&&document.getElementById('generation-workflow')?.value===item.id;
+      const current=mode==='01_text_to_image'&&item.models.includes(activeModel)&&item.id==='qwen';
       card.classList.toggle('is-current',current);
       const title=document.createElement('strong');title.textContent=item.name;
       const purpose=document.createElement('p');purpose.className='workflow-purpose';purpose.textContent=item.purpose;
@@ -1188,7 +1184,7 @@ window.addEventListener('creative-mode-change',()=>{if(['01_text_to_image','02_c
   for(const id of ['quality-field','upscale-model-field','region-field','identity-options','references-field','local-options','seed-field','memory-field','model-help'])advanced.append(byId(id));
   const start=document.createElement('div');start.className='simple-start';const action=document.createElement('button');action.id='simple-submit';action.type='submit';action.className='primary';action.setAttribute('form','form');start.append(action,byId('error'));const hint=document.createElement('p');hint.className='help';hint.textContent='';start.append(hint);
   form.replaceChildren(intro,basic,advanced,start);
-  const modelField=document.createElement('div');modelField.className='field model-field';modelField.innerHTML='<label for="generation-model">选择模型</label><select id="generation-model"><option value="cutie">Krea2 · Moody Cutie</option><option value="mix_v8">Krea2 · Moody Mix</option><option value="pro_mix">ZIT · Moody Pro Mix</option><option value="qwen">Qwen · Image 2.1</option><option value="ray">Qwen · Ray Image 2.1</option></select>';basic.append(modelField);
+  const modelField=document.createElement('div');modelField.className='field model-field';modelField.innerHTML='<label for="generation-model">选择模型</label><select id="generation-model"><option value="qwen">Qwen · Image 2.1</option></select>';basic.append(modelField);
   basic.prepend(modelField);
   window.dispatchEvent(new CustomEvent('creative-select-added',{detail:byId('generation-model')}));
 const workflowField=document.createElement('div');workflowField.className='field workflow-field';workflowField.innerHTML='<label for="generation-workflow">选择工作流</label><select id="generation-workflow"><option value="moody_krea2_simple">Moody Krea2 Simple</option><option value="moody_krea2_rain_city">雨城飞鸟 · Cutie</option><option value="moody_krea2_4khd">Moody Krea2 4KHD</option><option value="moody_krea2_i2i_4khd">Moody Krea2 图片重绘 4KHD</option><option value="moody_zit_simple">Moody ZIT Simple</option></select><p class="help" id="generation-workflow-help"></p>';modelField.after(workflowField);
@@ -1204,7 +1200,7 @@ const workflowField=document.createElement('div');workflowField.className='field
   window.characterSelection={payload(){if(mode!=='01_text_to_image')return {};const model=byId('generation-model').value,refs=imageReferences;if(model==='ray')return {};const id=byId('character-card').value;if(['cutie','mix_v8'].includes(model)&&byId('generation-workflow').value==='moody_krea2_i2i_4khd'&&refs.length!==1)throw Error('图片重绘 4KHD 需要上传一张场景原图');if(refs.length){if(!['cutie','mix_v8','qwen','pro_mix'].includes(model))throw Error('当前模型不支持参考图，请选择 Krea2、Qwen 或 Pro Mix');if(model==='pro_mix'&&refs.length+(id?1:0)>1)throw Error('ZIT 仅支持一张参考图，人物卡已占用；请移除其他参考图或取消人物卡');if(['cutie','mix_v8'].includes(model)&&(refs.length+(id?1:0)>2))throw Error('Krea2 最多两张参考图，人物卡占一张');if(model==='qwen'&&refs.length+(id?1:0)>3)throw Error('Qwen 最多三张参考图，人物卡占一张');}if(!id)return {};if(!['cutie','mix_v8','qwen','pro_mix'].includes(byId('generation-model').value))throw Error('人物卡支持 Krea2、Qwen 和 ZIT，请切换模型或取消人物卡');return {character_card_id:id};}};
 
   window.dispatchEvent(new CustomEvent('creative-select-added',{detail:byId('generation-workflow')}));
-  const editModelField=document.createElement('div');editModelField.className='field';editModelField.hidden=true;editModelField.innerHTML='<label for="edit-model">编辑模型</label><select id="edit-model"><option value="krea_cutie">Krea2 · Cutie</option><option value="krea_mix">Krea2 · Mix V8</option><option value="qwen">Qwen 2.1</option><option value="ray">Ray Qwen 2.1</option></select><p class="help" id="edit-model-help"></p>';basic.prepend(editModelField);
+  const editModelField=document.createElement('div');editModelField.className='field';editModelField.hidden=true;editModelField.innerHTML='<label for="edit-model">编辑模型</label><select id="edit-model"><option value="qwen">Qwen · Image 2.1</option></select><p class="help" id="edit-model-help"></p>';basic.prepend(editModelField);
   window.dispatchEvent(new CustomEvent('creative-select-added',{detail:byId('edit-model')}));
   function updateEditModelHelp(){const task=byId('edit-task')?.value;byId('edit-model-help').textContent=byId('edit-model').value==='ray'?(task==='outpaint'?'Ray Qwen 2.1 + 专用扩图 LoRA · 25 步 / CFG 2 · Euler A':task==='face'?'Ray Qwen + BFS Head · 局部换脸实验，身份相似度尚未稳定。':['head','body'].includes(task)?'Ray Qwen + BFS 专用 LoRA · 可选局部裁剪回贴。':'Ray Qwen 2.1 · 25 步 / CFG 2 · Euler A'):byId('edit-model').value==='qwen'?(task==='outpaint'?'Qwen 2.1 + 专用扩图 LoRA · 30 步 / CFG 1':task==='face'?'Qwen + BFS Head · 局部换脸实验，身份相似度尚未稳定。':['head','body'].includes(task)?'Qwen + BFS 专用 LoRA · 可涂抹选区后局部替换。':task==='local'?'Qwen 高分局部 · 裁剪生成后回贴，选区外保留原图。':'Qwen 2.1 · 30 步 / CFG 1 · 图1为原图，图2为参考。'):'';}
   byId('edit-model').addEventListener('change',updateEditModelHelp);updateEditModelHelp();
@@ -1384,7 +1380,7 @@ function updateResolution(){const select=byId('image-resolution'),labels={low:'�
     if(up)byId('scale-field').before(byId('upscale-model-field'));else advanced.append(byId('upscale-model-field'));modelField.hidden=!text;if(text){byId('quality-field').hidden=true;byId('simple-intro').textContent='';}
     const i2i=mode==='02_character_consistency';
     if(i2i&&previousMode!==mode)textGenerationModel=byId('generation-model').value;
-    if(text&&previousMode==='02_character_consistency'){byId('generation-model').value=textGenerationModel||'cutie';byId('generation-model').dispatchEvent(new Event('change'));}
+    if(text&&previousMode==='02_character_consistency'){byId('generation-model').value=textGenerationModel||'qwen';byId('generation-model').dispatchEvent(new Event('change'));}
     byId('image-references-field').hidden=!(text||i2i);if(text){byId('prompt-field').before(byId('image-references-field'));}byId('image-field').hidden=text||i2i;byId('identity-options').hidden=true;if(i2i){byId('region-field').hidden=true;byId('references-field').hidden=true;byId('ratio-field').hidden=false;modelField.hidden=false;byId('generation-model').value='qwen';byId('generation-model').disabled=true;}else byId('generation-model').disabled=false;
     outputSettings.hidden=!(text||i2i);resolutionField.hidden=!(text||i2i);updateResolution();
     taskField.hidden=mode!=='03_image_edit';editModelField.hidden=mode!=='03_image_edit';
@@ -1632,4 +1628,59 @@ document.addEventListener('DOMContentLoaded',()=>{
   change(target);
   url.searchParams.delete('mode');history.replaceState(null,'',url);
 });
+</script>
+<style>
+#first-guide{width:min(440px,85vw);padding:30px;border:1px solid #494949;border-radius:16px;background:#202020;color:#f7f7f7;box-shadow:0 22px 72px #0007}
+#first-guide::backdrop{background:#080808ad}
+#first-guide h2{font-size:26px;margin:14px 0}
+#first-guide p{line-height:1.75;color:#dedede;margin:0 0 24px}
+#first-guide footer{display:flex;align-items:center;gap:10px}
+#first-guide button,#guide-open{font:inherit;cursor:pointer;border-radius:8px;padding:8px 14px}
+#guide-next{margin-left:auto;background:#eee;color:#171717;border:0}
+#guide-skip,#guide-open{background:transparent;color:inherit;border:1px solid #777}
+#guide-open{margin-top:8px;font-size:12px}
+</style>
+<dialog id="first-guide" aria-labelledby="guide-heading">
+  <small id="guide-step"></small><h2 id="guide-heading"></h2><p id="guide-copy"></p>
+  <footer><button type="button" id="guide-skip">跳过教程</button><button type="button" id="guide-next"></button></footer>
+</dialog>
+<script>
+(() => {
+  const guide = document.getElementById('first-guide');
+  const key = 'lumina.qwen.first-guide.v1';
+  const example = '一只蓝色陶瓷茶壶放在橡木桌上，窗边柔和的自然光，写实摄影。';
+  const steps = [
+    ['欢迎使用 LuminaUI', '这里是你的本地图像工作台。Qwen-Image-2.1 和文生图工作流已经配好，接下来用一句描述生成第一张图。'],
+    ['写下你想看到的画面', '先写主体，再加场景和光线。例如：“' + example + '”'],
+    ['生成并查看作品', '先沿用默认竖图画幅，点击工作台的生成按钮。首次加载模型需要一点时间，完成后可以在画布查看结果，在输出库找回作品。']
+  ];
+  const next = document.getElementById('guide-next');
+  const prompt = document.getElementById('prompt');
+  let step = 0;
+  function render() {
+    document.getElementById('guide-step').textContent = '首次使用　' + (step + 1) + ' / ' + steps.length;
+    document.getElementById('guide-heading').textContent = steps[step][0];
+    document.getElementById('guide-copy').textContent = steps[step][1];
+    next.textContent = step < 2 ? '下一步' : prompt.value.trim() ? '回到工作台' : '用示例开始';
+  }
+  function openGuide() { step = 0; render(); guide.showModal(); next.focus(); }
+  function dismiss() {
+    try { localStorage.setItem(key,'done'); } catch {}
+    guide.close();
+  }
+  next.onclick = () => {
+    if (step < 2) { step++; render(); return; }
+    if (!prompt.value.trim()) { prompt.value = example; prompt.dispatchEvent(new Event('input',{bubbles:true})); }
+    dismiss();
+    prompt.focus();
+  };
+  document.getElementById('guide-skip').onclick = dismiss;
+  guide.addEventListener('cancel', event => { event.preventDefault(); dismiss(); });
+  const replay = document.createElement('button');
+  replay.id = 'guide-open'; replay.type = 'button'; replay.textContent = '使用教程'; replay.onclick = openGuide;
+  document.getElementById('submit').insertAdjacentElement('afterend',replay);
+  let seen = false;
+  try { seen = localStorage.getItem(key) === 'done'; } catch {}
+  if (!seen) openGuide();
+})();
 </script></body></html>

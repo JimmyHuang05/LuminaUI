@@ -28,7 +28,7 @@ ACTIVE = configured()
 # A running engine keeps its existing directories until it is restarted.
 # Use those same roots in the library and uploads, avoiding split writes.
 try:
-    with urllib.request.urlopen('http://127.0.0.1:8188/system_stats', timeout=2) as response:
+    with urllib.request.urlopen('http://127.0.0.1:18288/system_stats', timeout=2) as response:
         system = json.load(response)['system']
     ACTIVE.update(engine_roots(system['argv']))
 except (OSError, ValueError, KeyError):

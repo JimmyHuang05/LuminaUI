@@ -48,12 +48,12 @@ async def _complete(payload,config=None):
         async with ClientSession(timeout=ClientTimeout(total=10)) as session:
             # Do not unload a model while ComfyUI is generating.
             for _ in range(90):
-                async with session.get('http://127.0.0.1:8188/queue') as r:
+                async with session.get('http://127.0.0.1:18288/queue') as r:
                     r.raise_for_status();queue=await r.json()
                 if not queue['queue_running'] and not queue['queue_pending']:break
                 await asyncio.sleep(1)
             else:raise ValueError('生图任务仍在运行，本地助手暂不可用，原内容已保留')
-            async with session.post('http://127.0.0.1:8188/free',json={'unload_models':True,'free_memory':True}) as r:
+            async with session.post('http://127.0.0.1:18288/free',json={'unload_models':True,'free_memory':True}) as r:
                 r.raise_for_status()
         key=secrets.token_urlsafe(32)
         port=available_port()
