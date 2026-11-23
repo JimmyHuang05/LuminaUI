@@ -1,0 +1,158 @@
+{
+  "version": 1,
+  "backend": "http://127.0.0.1:8188",
+  "presets": [
+    {
+      "id": "01_text_to_image",
+      "label": "文字生图",
+      "api_file": "01_text_to_image_api.json",
+      "ui_file": "01_text_to_image.json",
+      "fields": {
+        "prompt": {
+          "node": "4",
+          "input": "prompt"
+        },
+        "seed": {
+          "node": "7",
+          "input": "seed"
+        },
+        "width": {
+          "node": "5",
+          "input": "width"
+        },
+        "height": {
+          "node": "5",
+          "input": "height"
+        }
+      },
+      "output_node": "9",
+      "tested": true,
+      "test_seconds": 20.06,
+      "test_sizes": [
+        [
+          864,
+          1152
+        ]
+      ],
+      "test_images": [
+        {
+          "filename": "01_text_to_image_00001_.png",
+          "subfolder": "Presets",
+          "type": "output"
+        }
+      ],
+      "test_reference": null
+    },
+    {
+      "id": "02_character_consistency",
+      "label": "图生图",
+      "api_file": "02_character_consistency_api.json",
+      "ui_file": "02_character_consistency.json",
+      "fields": {
+        "image": {
+          "node": "10",
+          "input": "image"
+        },
+        "prompt": {
+          "node": "4",
+          "input": "prompt"
+        },
+        "seed": {
+          "node": "7",
+          "input": "seed"
+        }
+      },
+      "output_node": "9",
+      "tested": true,
+      "test_seconds": 32.11,
+      "test_sizes": [
+        [
+          896,
+          1184
+        ]
+      ],
+      "test_images": [
+        {
+          "filename": "02_character_consistency_00001_.png",
+          "subfolder": "Presets",
+          "type": "output"
+        }
+      ],
+      "test_reference": "blue whale sample"
+    },
+    {
+      "id": "03_image_edit",
+      "label": "图片编辑",
+      "api_file": "03_image_edit_api.json",
+      "ui_file": "03_image_edit.json",
+      "fields": {
+        "image": {
+          "node": "10",
+          "input": "image"
+        },
+        "prompt": {
+          "node": "4",
+          "input": "prompt"
+        },
+        "seed": {
+          "node": "7",
+          "input": "seed"
+        }
+      },
+      "output_node": "9",
+      "tested": true,
+      "test_seconds": 32.14,
+      "test_sizes": [
+        [
+          896,
+          1184
+        ]
+      ],
+      "test_images": [
+        {
+          "filename": "03_image_edit_00001_.png",
+          "subfolder": "Presets",
+          "type": "output"
+        }
+      ],
+      "test_reference": "blue whale sample"
+    },
+    {
+      "id": "04_upscale",
+      "label": "高清放大",
+      "api_file": "04_upscale_api.json",
+      "ui_file": "04_upscale.json",
+      "fields": {
+        "image": {
+          "node": "1",
+          "input": "image"
+        },
+        "post_scale": {
+          "node": "4",
+          "input": "scale_by",
+          "values": {
+            "2x": 0.5,
+            "4x": 1.0
+          }
+        }
+      },
+      "output_node": "5",
+      "tested": true,
+      "test_seconds": 6.08,
+      "test_sizes": [
+        [
+          1728,
+          2304
+        ]
+      ],
+      "test_images": [
+        {
+          "filename": "04_upscale_00001_.png",
+          "subfolder": "Presets",
+          "type": "output"
+        }
+      ],
+      "test_reference": "blue whale sample"
+    }
+  ]
+}

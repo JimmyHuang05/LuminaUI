@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LuminaUI · 桌面预览</title><link rel="stylesheet" href="style.css"></head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <a class="brand" href="#"><span class="brand-mark">✳</span><span>Lumina<span class="brand-ui">UI</span><small>PERSONAL IMAGE STUDIO</small></span></a>
+  <div class="workspace"><span class="workspace-icon">L</span><div>个人工作空间<small>你的灵感，从这里开始</small></div></div>
+  <div class="nav-label">创作</div>
+  <nav aria-label="主要导航">
+    <button class="nav active" data-page="generate"><span>✧</span>图像生成<kbd>01</kbd></button>
+    <button class="nav" data-page="edit"><span>◩</span>图像编辑<kbd>02</kbd></button>
+    <button class="nav" data-page="upscale"><span>↗</span>画质提升<kbd>03</kbd></button>
+    <button class="nav" data-page="reader"><span>◎</span>图片反推<kbd>04</kbd></button>
+    <div class="nav-label library-label">收藏与管理</div>
+    <button class="nav" data-page="gallery"><span>▦</span>我的图库</button>
+    <button class="nav" data-page="resources"><span>▱</span>资源库</button>
+  </nav>
+  <div class="sidebar-bottom"><div class="studio-note"><span>MAKE ROOM<br>FOR IMAGINATION.</span><i>✳</i><p>为想象，留一点空间。</p></div><button class="nav" data-page="settings"><span>⚙</span>偏好设置</button><div class="version"><span class="dot"></span>桌面界面预览<span>v0.1</span></div></div>
+</aside>
+<main>
+  <header><div class="breadcrumb">工作空间 <span>/</span> <b id="breadcrumb">图像生成</b></div><div class="header-right"><span class="preview-badge">UI PREVIEW</span><button id="help" class="icon" aria-label="预览说明">?</button><span class="avatar">L</span></div></header>
+  <section id="workbench">
+    <div class="heading"><div><div class="eyebrow">CREATE SOMETHING EXTRAORDINARY</div><h1 id="title">让想象，有迹可循<span>。</span></h1><p id="subtitle">从一句描述开始，探索画面的更多可能。</p></div><button class="secondary" id="reset">＋ 新建创作</button></div>
+    <div class="workbench-grid">
+      <section class="canvas-card">
+        <div class="canvas-toolbar"><div class="segmented" id="mode-tabs"><button class="selected" data-mode="text">文字生图</button><button data-mode="reference">参考图生图</button></div><button class="icon" id="expand" aria-label="放大画布">⛶</button></div>
+        <div class="canvas" id="canvas"><div class="canvas-corner top-left"></div><div class="canvas-corner bottom-right"></div><span class="canvas-meta">LUMINA / UNTITLED 001</span><div class="empty"><div class="orb"><div></div></div><h2 id="empty-title">下一张作品，始于你的想象</h2><p id="empty-copy">在右侧写下画面描述<br>让还没发生的灵感，在这里成形</p><span class="empty-tag">✧ 无限可能，等待落笔</span></div><span class="canvas-dimension" id="dimensions">1024 × 1280</span></div>
+        <div class="canvas-bottom"><span><i class="dot"></i>画布已就绪</span><div><button class="text-button" disabled>↓ 保存图片</button><button class="text-button" disabled>↗ 发送到编辑</button></div></div>
+      </section>
+      <aside class="parameters">
+        <div class="panel-heading"><h2>创作设置</h2><span>PARAMETERS</span></div>
+        <div class="parameter-body">
+          <div id="reference" hidden><label>参考图片</label><button class="upload" id="upload"><span>＋</span>添加参考图片<small>预览占位 · 暂不上传文件</small></button></div>
+          <div class="field"><label for="prompt"><span id="prompt-label">画面描述</span><button class="text-button accent" id="inspiration">✧ 来点灵感</button></label><textarea id="prompt" maxlength="2000" placeholder="描述你脑海中的画面…&#10;&#10;例如：清晨的山间木屋，薄雾漫过松林，温柔的自然光，电影感构图。"></textarea><div class="input-meta"><span>主体 / 场景 / 光线 / 风格</span><span id="count">0 / 2000</span></div></div>
+          <div class="field"><label for="model">创作模型<span class="subtle">示例选项</span></label><select id="model"><option>Z-Image Turbo</option><option>Qwen Image 2.1</option><option>Krea 2</option></select><p class="hint">模型与参数仅用于展示界面</p></div>
+          <div class="field"><label>画面比例<span class="subtle" id="ratio-label">4:5 · 竖幅</span></label><div class="ratios"><button data-ratio="1:1"><i style="aspect-ratio:1"></i>1:1</button><button data-ratio="4:5" class="selected"><i style="aspect-ratio:4/5"></i>4:5</button><button data-ratio="3:2"><i style="aspect-ratio:3/2"></i>3:2</button><button data-ratio="16:9"><i style="aspect-ratio:16/9"></i>16:9</button></div></div>
+          <div class="field"><label>生成数量<span class="subtle">张</span></label><div class="quantities"><button class="selected">1</button><button>2</button><button>4</button></div></div>
+          <details><summary>高级设置<span>＋</span></summary><div class="advanced"><label for="seed">随机种子</label><input id="seed" placeholder="随机"><label for="steps">采样步数 <output id="step-value">20</output></label><input type="range" min="4" max="50" value="20" id="steps"></div></details>
+        </div>
+        <div class="generate-area"><button id="generate">✧ <span>预览创作效果</span><span>↗</span></button><p>界面演示 · 尚未连接生成服务</p></div>
+      </aside>
+    </div>
+    <section class="recent"><div class="section-heading"><h2>最近创作 <span>RECENT WORK</span></h2><button class="text-button" id="view-gallery">查看图库 ↗</button></div><div class="recent-empty"><span>▧</span><div><b>为你的第一张作品留个位置</b><p>接入生成服务后，最近的创作会出现在这里。</p></div><span class="subtle">0 张作品</span></div></section>
+  </section>
+  <section id="other-page" hidden></section>
+  <footer><span>LUMINA — PERSONAL STUDIO</span><span>界面探索版 <i>·</i> 让创作发生</span></footer>
+</main>
+</div>
+<div id="toast" role="status"></div>
+<dialog id="preview-dialog"><div class="dialog-heading"><h2>画布预览</h2><button class="icon" id="close-dialog" aria-label="关闭预览">×</button></div><div class="dialog-art"><div class="orb"><div></div></div><h2>为想象，留一点空间。</h2><p>此处为视觉占位，并非生成结果。</p></div></dialog>
+<script src="app.js"></script>
+</body></html>

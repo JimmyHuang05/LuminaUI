@@ -1,0 +1,152 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "moodyCutieMixFreeKrea2_v60_nvfp4.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_4b_fp8_scaled.safetensors",
+      "type": "krea2",
+      "device": "cpu"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_vae.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "clip": [
+        "22",
+        1
+      ],
+      "text": "masterpiece, best quality, ultra-detailed, highly aesthetic, cinematic editorial poster design, sophisticated contemporary graphic design, photorealistic urban atmosphere, literary visual storytelling, premium art-book cover quality, realistic cinematic photography fused with restrained experimental editorial composition, a wide ultra-horizontal 21:9 composition designed like an elegant literary poster, the entire artwork organized around a strong horizontal visual rhythm created by a migrating flock of birds and a long urban river cutting through the architecture, a quiet post-rain city scene filled with melancholy, introspection, fleeting movement, urban solitude, literary atmosphere, subtle existential tension, poetic realism, restrained European modernist sensibility, visual references to the emotional qualities of Rabindranath Tagore's \"Stray Birds\" and James Joyce's \"Ulysses\" without reproducing any existing cover or illustration, transforming the two literary influences into an original visual language of birds, water, urban wandering, fragmented observation, passing time, memory, consciousness, and anonymous city life.\n\nPlace the entire composition inside a broad matte-black outer field, creating a substantial cinematic border around a large horizontal photographic image panel, the inner panel occupying most of the canvas while retaining generous black negative space above and below, precise rectangular edges, sophisticated magazine-cover proportions, understated museum-poster presentation, the inner image should feel like a physical photographic print mounted inside a larger graphic-design system, with subtle paper texture and barely visible printing imperfections along the outer margins. Keep the central image panel predominantly cold gray-blue, desaturated slate, wet concrete gray, muted steel, pale ivory reflections, deep charcoal, and restrained dark green-gray, with only very subtle warm amber illumination appearing in distant windows and reflected streetlights, never allowing warm colors to dominate. The overall palette should feel like a city immediately after heavy rain, with moisture still suspended in the air, wet asphalt reflecting architectural silhouettes, soft overcast daylight mixed with scattered artificial illumination, and a subdued cinematic tonal range.\n\nConstruct the city as a dense but elegant modern European urban environment viewed from slightly above street level, with a river running diagonally and then horizontally through the composition, becoming the primary spatial axis of the poster. The river should occupy a significant portion of the lower-middle frame, its surface dark and reflective after rainfall, carrying broken reflections of buildings, bridges, street lamps, passing vehicles, and pale sky. The river should feel calm but alive, with tiny ripples, rainwater currents, floating leaves, and fragmented reflections disrupting the surface like fragments of thought. Along both banks, construct rows of weathered stone buildings, narrow brick facades, contemporary glass structures, iron railings, old masonry walls, wet pavement, recessed storefronts, street signs rendered completely unreadable, bicycle racks, drainage channels, utility poles, distant traffic lights, and scattered pedestrians reduced to small atmospheric silhouettes. Mix older architecture with modern structures so the city feels layered with different historical moments existing simultaneously, creating a visual metaphor for the compressed temporal experience of an urban day.\n\nMake the bridge one of the major compositional anchors. Position the bridge slightly right of center, extending across the river with elegant dark iron railings and wet stone pavement, its geometry forming a strong horizontal counterpoint to the flowing river. The bridge should appear realistically integrated into the city rather than monumental, with subtle traces of rainwater running along its surface, muted reflections underneath, a few distant pedestrians crossing, and several small vehicles blurred by atmospheric distance. The bridge railing should guide the eye toward the main character and then onward toward the river and the flock of birds. Use strong perspective lines from the wet street and bridge structure to create a controlled editorial composition rather than a conventional cinematic landscape.\n\nPlace a solitary young woman beside the river railing at the near edge of the bridge, slightly right of the central vertical axis, occupying approximately fifteen to twenty percent of the inner image height. She has just stopped walking after the rain and has folded and lowered her umbrella, holding the closed umbrella loosely in one hand while the other hand rests naturally against the wet river railing. Her posture should be quiet, contemplative, and slightly tired, with a subtle three-quarter orientation toward the river and the birds rather than toward the viewer. Her head is turned gently upward and toward the migrating flock, creating a visual connection between her gaze and the movement across the sky. Keep her expression restrained and introspective, with no exaggerated emotion, as though she has momentarily forgotten the surrounding city. Her silhouette should remain clearly readable against the lighter river and distant buildings.\n\nDress her in understated contemporary literary fashion appropriate for a cool rainy European city: a long charcoal-gray wool coat with slightly oversized tailoring, a muted cream knit sweater underneath, a dark pleated midi skirt or tailored wide-leg trousers, simple black leather ankle boots, and a narrow dark scarf hanging naturally from the neck. The clothing should be realistically damp around the lower edges, with tiny droplets visible along the shoulders and coat surface. Her closed umbrella should be matte black with a narrow curved handle, carrying small beads of water along its fabric. Avoid fashionable exaggeration, logos, decorative patterns, or fantasy elements. The character should feel like an ordinary person caught inside an extraordinary moment of visual composition.\n\nMake the migrating birds the dominant visual system of the entire poster. Create approximately forty to sixty birds moving across the middle and upper-middle portions of the composition, traveling from the left side toward the distant right side of the city. The flock should have a strong horizontal flow but controlled irregularity, with multiple scales, distances, wing positions, and degrees of atmospheric softness. Several large birds should occupy the foreground and pass above the bridge, while medium birds create the principal migration ribbon and numerous tiny distant birds dissolve into the misty sky. Preserve realistic anatomy, recognizable wings, long necks, tails, and subtle differences between individual birds. The flock should feel organic and unsynchronized, with some birds gliding, some actively beating their wings, some banking slightly, and some appearing almost motionless against the pale sky.\n\nLet several birds overlap the architectural silhouettes while others disappear behind distant buildings and bridge structures. A few large foreground birds should cross the open sky near the upper center, their bodies sharply resolved against the pale gray atmosphere, while the majority gradually lose contrast toward the right side, producing a visual transition from tangible physical forms into atmospheric marks. Use slight motion blur only on selected wing tips, never across the entire flock. The birds should remain the brightest organic visual element in the composition, their pale bodies catching the diffused post-rain light, creating an almost monochromatic white-gray migration ribbon above the river.\n\nIntegrate subtle visual echoes of \"Stray Birds\" through the flock itself: individual birds should occasionally separate from the main formation, creating tiny isolated moments of distance and solitude, with one or two birds flying slightly below the principal migration band and another distant pair reflected faintly in the river. Allow the flock to resemble a sequence of fleeting observations rather than a perfectly organized natural formation. The birds should create a poetic tension between collective movement and individual direction.\n\nIntegrate the emotional structure of \"Ulysses\" through the city itself. Build the environment as a visual stream of consciousness composed of fragmented urban details: reflections inside windows, passing silhouettes, rainwater flowing toward drains, bicycles left against railings, distant lamps, unreadable signs, blurred faces, layered architectural facades, small pools of water, fragments of traffic, and multiple overlapping routes through the city. Nothing should become literal symbolism or typography. The city should simply feel densely observed, as though the viewer has entered the middle of a long wandering day and every ordinary object has acquired temporary significance.\n\nCreate a subtle editorial grid underneath the photographic composition. Integrate extremely thin pale-blue-gray alignment lines, incomplete rectangular frames, tiny registration marks, sparse circular guides, narrow horizontal measurement-like ticks, and a few transparent geometric overlays, all extremely restrained and partially hidden behind the architecture. These marks should resemble sophisticated contemporary book-design graphics rather than a futuristic interface. Keep them almost invisible at first glance, revealing themselves only when the viewer studies the image. Do not use readable numbers, letters, captions, or technical labels. Replace every possible textual element with abstract lines, small circles, blank geometric fields, and non-semantic marks.\n\nIntroduce several enormous but extremely faint elliptical curves following the trajectory of the birds and the river, beginning outside the left side of the image panel and sweeping across the sky before dissolving near the right edge. These curves should be barely visible, like traces from an architectural drawing layered beneath the photograph. One curve should echo the river's path, while another should loosely follow the migration trajectory. Their purpose is to connect the natural movement of the birds with the artificial geometry of the city without becoming visually dominant.\n\nUse the river as a secondary mirror for the sky and birds. Do not create perfect reflections. Instead, distort the reflected architecture and bird silhouettes through rain ripples and slow water movement. Some reflections should be stretched vertically, some broken into fragments, and some completely erased by ripples. A few pale bird shapes should appear as nearly abstract white streaks in the water, creating a quiet visual correspondence between sky and river. The character's reflection should be faint and incomplete, visible only as a fragmented dark silhouette beneath the railing.\n\nThe post-rain atmosphere should be extremely realistic: wet asphalt with physically believable reflections, tiny droplets clinging to metal railings, damp stone surfaces, shallow puddles, darkened brick, softened distant architecture, humid air, faint mist above the river, low cloud cover, subtle water vapor, and scattered droplets suspended in the foreground. Avoid dramatic storms or visible heavy rainfall. The rain has already ended. The city should exist inside the quiet interval immediately afterward, when everything remains wet and reflective and the streets feel temporarily emptied.\n\nLighting should come primarily from a large diffuse overcast sky, producing soft directional illumination with almost no hard shadows. Add a restrained secondary illumination from street lamps and windows, appearing as tiny desaturated amber points reflected across wet surfaces. The brightest region should be the pale sky behind the upper portion of the flock, while the darkest values should gather around the river, bridge structure, wet street edges, and architectural recesses. Use cinematic dynamic range while maintaining realistic photographic exposure. Avoid excessive bloom, neon lighting, lens flares, artificial glow, or exaggerated HDR.\n\nThe visual hierarchy should read clearly from left to right: wet urban street and architectural density, the river entering the composition, the solitary woman beside the railing, the enormous migrating flock crossing above her, the bridge carrying the eye toward the distant city, then the birds gradually dispersing into pale atmospheric negative space on the right. The river should act as the physical spine of the composition, the birds as its moving counterpart, and the woman as the quiet human point where these two trajectories intersect.\n\nIntroduce subtle cropping at the edges: several birds should be cut by the left and upper boundaries, suggesting that the migration continues beyond the poster, while a few tiny birds should disappear toward the far-right horizon. Crop fragments of architecture at both sides to create the sensation that the city continues outside the frame. Keep the upper third comparatively spacious, allowing the pale sky to breathe around the flock. Keep the lower region richer in reflections, pavement texture, bridge geometry, and water, creating a visual balance between atmospheric emptiness and material density.\n\nThe final rendering should combine highly realistic urban photography, cinematic environmental detail, contemporary editorial graphic design, literary poster composition, restrained blueprint-like geometric overlays, subtle analog print texture, sophisticated negative space, and melancholy post-rain atmosphere. Maintain realistic human anatomy, realistic bird anatomy, physically believable materials, natural perspective, accurate wet-surface reflections, nuanced atmospheric depth, subtle film grain, delicate photographic softness, and extremely controlled color grading. The image should feel like an expensive literary magazine cover transformed into a cinematic urban key visual, intellectually quiet, emotionally distant, deeply observant, and filled with the sensation of a long walk after rain.\n\nNo words, letters, numbers, captions, typography, logos, signatures, watermarks, subtitles, QR codes, barcodes, readable street signs, readable book titles, readable advertisements, interface labels, machine-readable patterns, fictional writing, or semantic symbols anywhere in the image. No fantasy architecture, no surreal buildings, no exaggerated anime rendering, no glowing birds, no magical effects, no cyberpunk neon, no excessive interface graphics, no dramatic storm clouds, no heroic pose, no theatrical character gesture, no excessive color saturation, no excessive depth-of-field blur, no plastic-looking skin, no artificial beauty retouching, no oversized character, no dominant portrait composition, no dense typography-like texture. The final visual language should remain grounded in realism, literature, urban observation, migration, water, architecture, memory, solitude, and quiet movement: a rain-soaked city crossed by birds, a river carrying reflections beneath them, and a solitary human figure standing still while the entire world continues moving.\n"
+    }
+  },
+  "5": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 1280,
+      "height": 720,
+      "batch_size": 1
+    }
+  },
+  "6": {
+    "class_type": "ConditioningZeroOut",
+    "inputs": {
+      "conditioning": [
+        "4",
+        0
+      ]
+    }
+  },
+  "7": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "22",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "6",
+        0
+      ],
+      "latent_image": [
+        "5",
+        0
+      ],
+      "seed": 142833616767095,
+      "steps": 8,
+      "cfg": 1.0,
+      "sampler_name": "euler_ancestral",
+      "scheduler": "beta",
+      "denoise": 1.0
+    }
+  },
+  "8": {
+    "class_type": "VAEDecodeTiled",
+    "inputs": {
+      "samples": [
+        "7",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "tile_size": 512,
+      "overlap": 64,
+      "temporal_size": 64,
+      "temporal_overlap": 8
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "8",
+        0
+      ],
+      "filename_prefix": "Krea2/rain_city_cutie"
+    }
+  },
+  "20": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "clip": [
+        "2",
+        0
+      ],
+      "lora_name": "rain_city\\z3zz4-k2-4_c1-st5000.safetensors",
+      "strength_model": 0.85,
+      "strength_clip": 0.85
+    }
+  },
+  "21": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "20",
+        0
+      ],
+      "clip": [
+        "20",
+        1
+      ],
+      "lora_name": "rain_city\\m87_lora_v1.safetensors",
+      "strength_model": 0.8,
+      "strength_clip": 0.8
+    }
+  },
+  "22": {
+    "class_type": "LoraLoader",
+    "inputs": {
+      "model": [
+        "21",
+        0
+      ],
+      "clip": [
+        "21",
+        1
+      ],
+      "lora_name": "rain_city\\Detailer-KREA2.safetensors",
+      "strength_model": 1.0,
+      "strength_clip": 1.0
+    }
+  }
+}

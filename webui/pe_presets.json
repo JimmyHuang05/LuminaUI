@@ -1,0 +1,233 @@
+{
+  "verified": "2026-10-14",
+  "presets": [
+    {
+      "id": "openai",
+      "label": "OpenAI",
+      "protocol": "responses",
+      "base_url": "https://api.openai.com/v1",
+      "models": [
+        {
+          "id": "gpt-6.1-sol",
+          "vision": true
+        },
+        {
+          "id": "gpt-6-astra",
+          "vision": true
+        },
+        {
+          "id": "gpt-6-luna",
+          "vision": true
+        }
+      ],
+      "docs": "https://developers.openai.com/api/docs/models"
+    },
+    {
+      "id": "gemini",
+      "label": "Google Gemini",
+      "protocol": "openai",
+      "base_url": "https://generativelanguage.googleapis.com/v1beta/openai",
+      "models": [
+        {
+          "id": "gemini-3.8-flash",
+          "vision": true
+        },
+        {
+          "id": "gemini-3.6-flash",
+          "vision": true
+        },
+        {
+          "id": "gemini-3.5-flash-lite",
+          "vision": true
+        }
+      ],
+      "docs": "https://ai.google.dev/gemini-api/docs/openai"
+    },
+    {
+      "id": "claude",
+      "label": "Anthropic Claude",
+      "protocol": "anthropic",
+      "base_url": "https://api.anthropic.com/v1",
+      "models": [
+        {
+          "id": "claude-sonnet-5-5",
+          "vision": true
+        },
+        {
+          "id": "claude-opus-5-5",
+          "vision": true
+        },
+        {
+          "id": "claude-haiku-5-5",
+          "vision": true
+        },
+        {
+          "id": "claude-fable-5-1",
+          "vision": true
+        }
+      ],
+      "docs": "https://platform.claude.com/docs/en/models/overview"
+    },
+    {
+      "id": "qwen-cloud",
+      "label": "通义千问 Qwen",
+      "protocol": "openai",
+      "base_url": "https://dashscope.aliyuncs.com/compatible-mode/v1",
+      "models": [
+        {
+          "id": "qwen3.8-max",
+          "vision": true
+        },
+        {
+          "id": "qwen3.8-flash",
+          "vision": true
+        },
+        {
+          "id": "qwen3.5-plus",
+          "vision": true
+        },
+        {
+          "id": "qwen3.5-flash",
+          "vision": true
+        },
+        {
+          "id": "qwen3-vl-plus",
+          "vision": true
+        }
+      ],
+      "docs": "https://help.aliyun.com/zh/model-studio/compatibility-of-openai-with-dashscope",
+      "endpoints": [
+        {
+          "label": "中国大陆",
+          "url": "https://dashscope.aliyuncs.com/compatible-mode/v1"
+        },
+        {
+          "label": "国际（新加坡）",
+          "url": "https://dashscope-intl.aliyuncs.com/compatible-mode/v1"
+        },
+        {
+          "label": "美国",
+          "url": "https://dashscope-us.aliyuncs.com/compatible-mode/v1"
+        }
+      ]
+    },
+    {
+      "id": "deepseek",
+      "label": "DeepSeek",
+      "protocol": "openai",
+      "base_url": "https://api.deepseek.com",
+      "models": [
+        {
+          "id": "deepseek-flash",
+          "vision": true
+        },
+        {
+          "id": "deepseek-v4-pro",
+          "vision": false
+        }
+      ],
+      "docs": "https://api-docs.deepseek.com/quick_start/pricing/"
+    },
+    {
+      "id": "glm",
+      "label": "智谱 GLM",
+      "protocol": "openai",
+      "base_url": "https://open.bigmodel.cn/api/paas/v4",
+      "models": [
+        {
+          "id": "glm-5.3",
+          "vision": false
+        },
+        {
+          "id": "glm-5",
+          "vision": false
+        },
+        {
+          "id": "glm-4.6v",
+          "vision": true
+        }
+      ],
+      "docs": "https://docs.bigmodel.cn/cn/api/introduction",
+      "endpoints": [
+        {
+          "label": "中国大陆",
+          "url": "https://open.bigmodel.cn/api/paas/v4"
+        },
+        {
+          "label": "国际 Z.AI",
+          "url": "https://api.z.ai/api/paas/v4"
+        }
+      ]
+    },
+    {
+      "id": "minimax",
+      "label": "MiniMax",
+      "protocol": "openai",
+      "base_url": "https://api.minimax.cn/v1",
+      "models": [
+        {
+          "id": "MiniMax-M3",
+          "vision": true
+        },
+        {
+          "id": "MiniMax-M2.7",
+          "vision": false
+        },
+        {
+          "id": "MiniMax-M2.7-highspeed",
+          "vision": false
+        }
+      ],
+      "docs": "https://platform.minimax.io/docs/api-reference/text-openai-api",
+      "endpoints": [
+        {
+          "label": "中国大陆",
+          "url": "https://api.minimax.cn/v1"
+        },
+        {
+          "label": "国际",
+          "url": "https://api.minimax.io/v1"
+        }
+      ]
+    },
+    {
+      "id": "kimi",
+      "label": "Kimi",
+      "protocol": "openai",
+      "base_url": "https://api.moonshot.cn/v1",
+      "models": [
+        {
+          "id": "kimi-k3",
+          "vision": true
+        },
+        {
+          "id": "kimi-k2.6",
+          "vision": true
+        },
+        {
+          "id": "kimi-k2.7-code-highspeed",
+          "vision": true
+        }
+      ],
+      "docs": "https://platform.kimi.ai/docs/overview",
+      "endpoints": [
+        {
+          "label": "中国大陆",
+          "url": "https://api.moonshot.cn/v1"
+        },
+        {
+          "label": "国际",
+          "url": "https://api.moonshot.ai/v1"
+        }
+      ]
+    },
+    {
+      "id": "custom",
+      "label": "自定义服务",
+      "protocol": "openai",
+      "base_url": "",
+      "models": [],
+      "docs": ""
+    }
+  ]
+}

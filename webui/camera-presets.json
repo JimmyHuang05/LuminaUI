@@ -1,0 +1,41 @@
+{
+  "version": 1,
+  "items": [
+    {
+      "id": "phone",
+      "label": "手机随拍",
+      "prompt": "Handheld phone at 1x, about 26mm equivalent, from ordinary standing height. Slight off-centre framing and a small natural tilt. Readable surroundings and broad depth of field, no artificial portrait-mode blur.",
+      "description": "手机1倍、轻微歪斜，背景可辨"
+    },
+    {
+      "id": "telephoto",
+      "label": "远处长焦",
+      "prompt": "Photographed from across the public space using a 135mm telephoto perspective, with compressed distances and moderately softened background. Keep enough environmental context to understand the scene.",
+      "description": "远距离135mm，空间压缩与适度虚化"
+    },
+    {
+      "id": "obstruction",
+      "label": "前景遮挡",
+      "prompt": "Observe from beside a pillar or other existing scene object using a 50mm perspective. One softly blurred foreground edge partially obscures the frame; keep the face and essential action visible.",
+      "description": "50mm，从现场物体旁观察，前景局部遮挡"
+    },
+    {
+      "id": "gap",
+      "label": "缝隙观察",
+      "prompt": "Photograph through a gap between existing foreground objects in a public space with an 85mm perspective. Dark out-of-focus edges frame the subject asymmetrically without hiding the face.",
+      "description": "85mm，物体间隙与不对称暗边"
+    },
+    {
+      "id": "reflection",
+      "label": "玻璃反射",
+      "prompt": "Photograph the subject reflected in a public storefront window using a 50mm perspective. Subtle environmental reflections and faint double images coexist with a recognisable face.",
+      "description": "50mm，商店玻璃反射与轻微重影"
+    },
+    {
+      "id": "low",
+      "label": "低机位环境",
+      "prompt": "Photograph from roughly chair-seat height with a 28mm perspective, looking slightly upward. Retain natural body proportions and environmental foreground; frame the whole action without looking beneath clothing.",
+      "description": "28mm椅面高度，轻仰拍与环境前景"
+    }
+  ]
+}

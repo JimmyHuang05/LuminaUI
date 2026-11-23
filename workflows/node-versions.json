@@ -1,0 +1,37 @@
+[
+  {
+    "directory": "ComfyUI-Impact-Pack",
+    "url": "https://github.com/ltdrdata/ComfyUI-Impact-Pack.git",
+    "commit": "429d0159ad429e64d2b3916e6e7be9c22d025c3c"
+  },
+  {
+    "directory": "ComfyUI-Impact-Subpack",
+    "url": "https://github.com/ltdrdata/ComfyUI-Impact-Subpack.git",
+    "commit": "50c7b71a6a224734cc9b21963c6d1926816a97f1"
+  },
+  {
+    "directory": "ComfyUI-Inpaint-CropAndStitch",
+    "url": "https://github.com/lquesada/ComfyUI-Inpaint-CropAndStitch.git",
+    "commit": "8584b08d851762965df898b421a39075fc5357ae"
+  },
+  {
+    "directory": "ComfyUI-KJNodes",
+    "url": "https://github.com/kijai/ComfyUI-KJNodes.git",
+    "commit": "d3cfe21625e5170126ce06fbfcfe1d88108688c3"
+  },
+  {
+    "directory": "comfyui-krea2edit",
+    "url": "https://github.com/lbouaraba/comfyui-krea2edit.git",
+    "commit": "86f886dac23013d88996e3a2e99093ba44d322fb"
+  },
+  {
+    "directory": "ComfyUI_UltimateSDUpscale",
+    "url": "https://github.com/ssitu/ComfyUI_UltimateSDUpscale.git",
+    "commit": "a5547db9e1d07d3318bb21e9e9c474f4c1e9c8df"
+  },
+  {
+    "directory": "seedvr2_videoupscaler",
+    "url": "https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler.git",
+    "commit": "4490bd1f482e026674543386bb2a4d176da245b9"
+  }
+]

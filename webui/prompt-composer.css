@@ -1,0 +1,88 @@
+/* One editor surface: a focused workbench dialog or an edge-to-edge page. */
+.prompt-composer-dialog {
+  width:min(1180px,calc(100vw - 64px));
+  height:min(840px,calc(100dvh - 64px));
+  max-width:none;max-height:none;
+  background:#171717;border:1px solid #ffffff1c;border-radius:12px;
+  box-shadow:0 24px 90px #0007;
+}
+.prompt-composer-dialog::backdrop {background:#080808b8}
+.reader-import .prompt-composer-dialog.composer-fullscreen {
+  inset:0;transform:none;margin:0;width:100vw;height:100dvh;
+  max-width:none;max-height:none;border:0;border-radius:0;box-shadow:none;
+}
+.prompt-composer-dialog .prompt-details-heading {
+  min-height:66px;padding:0 28px;gap:16px;border-bottom:1px solid #ffffff0d;
+  background:#171717;
+}
+.prompt-composer-dialog .prompt-details-heading h3 {font-size:13px;font-weight:500;color:#d9d9d9;white-space:nowrap}
+.prompt-composer-dialog .composer-source-label {margin:0;padding:0 0 0 16px;border-left:1px solid #ffffff15;font-size:11px;line-height:16px;color:#808080}
+.prompt-composer-dialog .composer-autosave-status {font-size:11px;color:#868686;max-width:36%;line-height:1.5}
+.prompt-composer-dialog .composer-autosave-status.has-notice {color:#e5aaa8}
+.prompt-composer-dialog .prompt-details-heading .reader-draft-save {height:34px;border:0;border-radius:6px;background:#dddddd;color:#222222;padding:0 16px;font-size:12px}
+.prompt-composer-dialog .reader-draft-save:hover:not(:disabled) {background:#efefef}
+.prompt-composer-dialog .prompt-details-heading button[aria-label="关闭提示词编辑"] {display:grid;place-items:center;flex:0 0 32px;width:32px;height:32px;padding:0;border:0;border-radius:6px;font-size:20px;line-height:1;color:#959595}
+.prompt-composer-dialog .prompt-details-heading button[aria-label="关闭提示词编辑"]:hover {background:#ffffff09;color:#eee}
+.prompt-composer-dialog .composer-columns {display:grid;grid-template-columns:minmax(0,1fr) 280px;overflow:hidden}
+.prompt-composer-dialog .composer-editor {display:grid;grid-template-rows:auto minmax(0,1fr) auto;gap:0;padding:28px 34px 20px;min-height:0;height:auto;overflow:hidden}
+.prompt-composer-dialog .composer-document-heading {min-width:0;padding-bottom:8px}
+.prompt-composer-dialog .composer-document-heading label {display:block;margin:0;font-size:10px;line-height:1.5;color:#7c7c7c}
+.prompt-composer-dialog .composer-document-heading .draft-title {display:block;width:100%;height:48px;margin:4px 0 0;padding:0;background:transparent;border:0;border-radius:0;color:#e1e1e1;font-family:inherit;font-size:25px;font-weight:500;line-height:1.5;box-shadow:none;letter-spacing:-.5px}
+.prompt-composer-dialog .composer-document-heading .draft-title::placeholder {color:#626262;font-size:23px}
+.prompt-composer-dialog .composer-body-heading {display:flex;align-items:center;gap:12px;margin-top:23px;padding-top:18px;border-top:1px solid #ffffff10;color:#8d8d8d;font-size:11px}
+.prompt-composer-dialog .composer-editor-modes {display:flex;align-items:center;gap:2px;margin-left:auto}
+.prompt-composer-dialog .composer-editor-modes button {border:0;border-radius:5px;background:transparent;color:#7f7f7f;font-size:11px;padding:5px 10px}
+.prompt-composer-dialog .composer-editor-modes button[aria-pressed=true] {background:#ffffff09;color:#cfcfcf}
+.prompt-composer-dialog .composer-editor-modes button:hover {color:#eee}
+.prompt-composer-dialog .composer-editor>.composer-raw-editor {min-height:0;margin:0;padding:14px 0 4px}
+.prompt-composer-dialog .composer-editor .draft-preview {height:100%;min-height:0;margin:0;padding:0 12px 0 0;resize:none;border:0;background:transparent;color:#cecece;font-family:inherit;font-size:13px;line-height:1.95;white-space:pre-wrap}
+.prompt-composer-dialog .composer-editor>[hidden] {display:none!important}
+.prompt-composer-dialog .composer-editor>.prompt-section-editor {height:100%;min-height:0;max-height:none;padding:14px 12px 16px 0;scrollbar-width:thin;scrollbar-color:#3b3b3b transparent}
+.prompt-composer-dialog .prompt-section-plain .prompt-section-field {padding:18px 0!important;border-bottom-color:#ffffff0b!important}
+.prompt-composer-dialog .prompt-section-plain .module-card-top {margin-bottom:8px!important}
+.prompt-composer-dialog .prompt-section-plain .module-card-top>span:first-child {font-size:11px;color:#989898}
+.prompt-composer-dialog .prompt-section-plain .prompt-section-field textarea {font-size:13px!important;line-height:1.95!important;color:#cecece!important;white-space:pre-wrap!important;overflow-wrap:anywhere;word-break:normal;text-overflow:clip}
+.prompt-composer-dialog .composer-editor>.composer-chat {padding-top:14px}
+.prompt-composer-dialog .composer-input-box {border:1px solid #ffffff16;border-radius:12px;background:#212121;box-shadow:none}
+.prompt-composer-dialog .composer-input-box:focus-within {border-color:#ffffff30}
+.prompt-composer-dialog .composer-input-box::after {display:none}
+.prompt-composer-dialog .composer-input-box>textarea {height:56px;min-height:56px;max-height:160px;padding:14px 44px 6px 16px;font-size:12px;line-height:1.7}
+.prompt-composer-dialog .composer-input-box>textarea::placeholder {color:#808080}
+.prompt-composer-dialog .composer-input-box.is-expanded>textarea {height:clamp(120px,26dvh,260px);max-height:none}
+.prompt-composer-dialog .composer-input-expand {opacity:.65}
+.prompt-composer-dialog .composer-input-bar {padding:4px 10px 9px}
+.prompt-composer-dialog .composer-meta {padding:30px 24px;background:#1a1a1a;border:0;border-left:1px solid #ffffff0b;overflow:auto;scrollbar-width:thin;scrollbar-color:#3b3b3b transparent}
+.prompt-composer-dialog .composer-meta-heading {margin:0 0 22px;color:#a5a5a5;font-size:11px;font-weight:400;letter-spacing:0}
+.prompt-composer-dialog .composer-meta .prompt-cover-editor {margin:0 0 26px}
+.prompt-composer-dialog .composer-meta .prompt-cover {height:156px;aspect-ratio:auto;background:#1e1e1e;border:1px solid #ffffff10;border-radius:7px}
+.prompt-composer-dialog .composer-meta .prompt-cover img {object-fit:contain}
+.prompt-composer-dialog .composer-meta>label {display:block;margin:0 0 24px;font-size:11px;color:#939393}
+.prompt-composer-dialog .composer-meta input,.prompt-composer-dialog .composer-meta .composer-card-summary textarea {margin-top:9px;padding:10px 11px;background:#212121;border:1px solid #ffffff10;border-radius:6px;color:#cecece;font-size:12px;line-height:1.7;box-shadow:none}
+.prompt-composer-dialog .composer-meta input {height:38px}
+.prompt-composer-dialog .composer-meta input:focus,.prompt-composer-dialog .composer-meta .composer-card-summary textarea:focus {border-color:#ffffff30}
+.prompt-composer-dialog .composer-meta>.composer-source {padding-top:22px;margin-top:2px;border-color:#ffffff0e}
+.prompt-composer-dialog .composer-metadata-actions {padding-top:0;margin-top:0}
+.prompt-composer-dialog .composer-metadata-actions button {flex:0 1 auto;background:transparent;border-color:#ffffff16;padding:6px 10px;color:#919191;font-size:11px}
+.composer-fullscreen .composer-editor {padding:36px clamp(30px,5vw,96px) 24px}
+.composer-fullscreen .composer-columns {grid-template-columns:minmax(0,1fr) clamp(280px,23vw,340px)}
+.composer-fullscreen .prompt-details-heading {padding-inline:36px}
+.composer-fullscreen .composer-meta {padding:38px 30px}
+@media(min-width:1700px){.composer-fullscreen .composer-editor {padding-inline:max(60px,calc((100vw - 1340px)/2))}}
+@media(max-width:800px){
+ .prompt-composer-dialog {width:calc(100vw - 24px);height:calc(100dvh - 24px)}
+ .prompt-composer-dialog .composer-columns {grid-template-columns:minmax(0,1fr) 230px}
+ .prompt-composer-dialog .composer-editor {padding:22px 24px 16px}
+ .prompt-composer-dialog .composer-meta {padding:26px 18px}
+ .prompt-composer-dialog .prompt-details-heading {padding-inline:20px;gap:10px}
+ .prompt-composer-dialog .composer-source-label {display:none}
+ .prompt-composer-dialog .composer-document-heading .draft-title {font-size:22px}
+}
+@media(max-width:600px){
+ .prompt-composer-dialog .composer-columns {display:flex;flex-direction:column;overflow:auto}
+ .prompt-composer-dialog .composer-editor {min-height:520px;height:75dvh;flex:0 0 auto}
+ .prompt-composer-dialog .composer-meta {overflow:visible;border-left:0;border-top:1px solid #ffffff0e}
+ .prompt-composer-dialog .composer-autosave-status {max-width:80px;font-size:10px}
+ .prompt-composer-dialog .prompt-details-heading {min-height:60px;padding-inline:14px}
+ .prompt-composer-dialog .prompt-details-heading .reader-draft-save {padding-inline:10px}
+ .prompt-composer-dialog .composer-meta .prompt-cover {height:170px}
+}

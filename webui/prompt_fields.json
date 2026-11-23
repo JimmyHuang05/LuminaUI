@@ -1,0 +1,162 @@
+[
+  [
+    "人物",
+    [
+      [
+        "Identity",
+        "身份"
+      ],
+      [
+        "Face",
+        "五官"
+      ],
+      [
+        "Hair",
+        "发型与发色"
+      ],
+      [
+        "Body",
+        "体型"
+      ],
+      [
+        "Skin",
+        "肤色"
+      ]
+    ]
+  ],
+  [
+    "服饰",
+    [
+      [
+        "Top",
+        "上装"
+      ],
+      [
+        "Bottom",
+        "下装"
+      ],
+      [
+        "One-piece Outfit",
+        "连体服"
+      ],
+      [
+        "Legwear",
+        "腿部穿着"
+      ],
+      [
+        "Footwear",
+        "鞋履"
+      ],
+      [
+        "Accessories",
+        "配饰"
+      ]
+    ]
+  ],
+  [
+    "动作",
+    [
+      [
+        "Body Pose",
+        "身体姿势"
+      ],
+      [
+        "Hand Action",
+        "手部动作"
+      ],
+      [
+        "Expression",
+        "表情"
+      ],
+      [
+        "Gaze",
+        "视线"
+      ],
+      [
+        "Interaction",
+        "人物互动"
+      ]
+    ]
+  ],
+  [
+    "场景",
+    [
+      [
+        "Location",
+        "地点"
+      ],
+      [
+        "Background",
+        "背景"
+      ],
+      [
+        "Props",
+        "道具"
+      ]
+    ]
+  ],
+  [
+    "镜头",
+    [
+      [
+        "Shot Size",
+        "景别"
+      ],
+      [
+        "Camera Angle",
+        "机位角度"
+      ],
+      [
+        "Framing",
+        "构图"
+      ],
+      [
+        "Lens & Depth of Field",
+        "焦距与景深"
+      ]
+    ]
+  ],
+  [
+    "光影",
+    [
+      [
+        "Key Light",
+        "主光"
+      ],
+      [
+        "Ambient Light",
+        "环境光"
+      ],
+      [
+        "Color Palette",
+        "色调"
+      ]
+    ]
+  ],
+  [
+    "质感",
+    [
+      [
+        "Visual Style",
+        "摄影风格"
+      ],
+      [
+        "Material Details",
+        "材质细节"
+      ],
+      [
+        "Image Texture",
+        "画面纹理"
+      ]
+    ]
+  ],
+  [
+    "约束",
+    [
+      [
+        "Essential Constraints",
+        "关键约束"
+      ]
+    ]
+  ]
+]

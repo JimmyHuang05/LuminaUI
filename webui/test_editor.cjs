@@ -1,0 +1,10 @@
+const fs=require('fs'),vm=require('vm'),assert=require('assert');
+vm.runInThisContext(fs.readFileSync('webui/editor.js','utf8')+'\nglobalThis.EditorClass=RegionEditor;');
+const w=9,h=9,data=new Uint8ClampedArray(w*h*4);for(let n=0;n<w*h;n++)data[n*4+3]=255;
+const ctx={getImageData:()=>({data:data.slice()}),putImageData:im=>data.set(im.data)};
+const e=Object.create(EditorClass.prototype);Object.assign(e,{mask:{width:w,height:h},mctx:ctx,undo:[],annotations:[],rect:null,render:()=>{},changed:()=>{}});
+for(let y=2;y<=6;y++)for(let x=2;x<=6;x++)if(x===2||x===6||y===2||y===6)data[(y*w+x)*4]=255;
+e.fillHoles();assert.equal(data[(4*w+4)*4],255);assert.equal(data[0],0);e.revert();assert.equal(data[(4*w+4)*4],0);assert.equal(data[(2*w+2)*4],255);
+e.invert();assert.equal(data[0],255);assert.equal(data[(2*w+2)*4],0);e.revert();assert.equal(data[0],0);
+e.canvas={style:{}};e.offset=[0,0];global.document={getElementById:()=>null};e.setZoom(99);assert.equal(e.zoom,8);e.setZoom(0);assert.equal(e.zoom,.25);e.fit();assert.equal(e.zoom,1);
+console.log('PASS: enclosed holes, exterior preservation, invert, undo, zoom bounds and fit');

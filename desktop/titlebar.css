@@ -1,0 +1,23 @@
+/* Same typography and selection treatment as the workbench asset tabs. */
+:root{color-scheme:dark;font:12px system-ui,"Microsoft YaHei",sans-serif;--surface:#171717;--line:#343434;--muted:#999;--selected:#343434;--text:#eee}
+*{box-sizing:border-box}
+html,body{margin:0;background:var(--surface);color:var(--muted);height:100%;overflow:hidden}
+/* Reserve the native Windows controls; all remaining chrome shares one row. */
+header.appbar{height:50px;display:flex;align-items:center;gap:0;padding:0 145px 0 16px;user-select:none;-webkit-app-region:drag;border-bottom:1px solid #ffffff0c;background:var(--surface)}
+#tabs{height:100%;display:flex;align-items:center;gap:4px;min-width:0;flex:0 1 auto;overflow-x:auto;scrollbar-width:none;-webkit-app-region:no-drag}
+#tabs::-webkit-scrollbar{display:none}
+.tab{flex:0 0 auto;display:flex;align-items:center;justify-content:center;height:26px;margin:0;padding:0 12px;background:transparent;color:var(--muted);border:0;border-radius:5px;font:inherit;font-weight:400;line-height:1;white-space:nowrap;cursor:pointer;-webkit-app-region:no-drag;transition:background-color .1s,color .1s}
+.tab:hover{background:#262626;color:var(--text)}
+.tab[aria-selected=true]{background:var(--selected);color:var(--text)}
+.tab:focus-visible{outline:1px solid #aaa;outline-offset:-2px}
+.drag-space{flex:1;min-width:28px;height:100%}
+@media(max-width:650px){.tab{padding:0 9px}#tabs{gap:2px}}
+@media(prefers-reduced-motion:reduce){.tab{transition:none}}
+
+.app-brand{flex-shrink:0;margin-right:24px;padding:0;border:0;background:none;color:#e7e7e1;font:600 20px 'Segoe UI','Microsoft YaHei',sans-serif;letter-spacing:-.7px;cursor:pointer;-webkit-app-region:no-drag}.app-brand span{font-weight:350;color:#a4a4a0}
+.app-tools{flex-shrink:0;-webkit-app-region:no-drag}
+.app-tools{display:flex;align-items:center;gap:16px}.app-action{display:flex;align-items:center;gap:8px;border:0;background:transparent;color:#a5a5a0;border-radius:5px;padding:5px 8px;font:12px 'Segoe UI','Microsoft YaHei',sans-serif;cursor:pointer}.app-action:hover{background:#252525;color:#eee}.app-divider{height:12px;border-left:1px solid #383838;margin:0 4px}#engine-dot{width:4px;height:4px;border-radius:50%;background:#777}#engine-dot.online{background:#a6b299}.appbar button:focus-visible{outline:1px solid #bbb;outline-offset:3px}
+
+/* Hide focus outlines consistently across Lumina controls. */
+.app-action.active{background:var(--selected);color:var(--text)}
+*:focus,*:focus-visible{outline:none!important;outline-offset:0!important}

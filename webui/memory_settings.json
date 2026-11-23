@@ -1,0 +1,10 @@
+{
+  "reserve_vram_gb": 2,
+  "extra_headroom_gb": 2.5,
+  "idle_release_seconds": 90,
+  "reference_resolution": 1024,
+  "identity_resolution": 512,
+  "region_hint_resolution": 768,
+  "vae_tile_size": 512,
+  "vae_overlap": 64
+}

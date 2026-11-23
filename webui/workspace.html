@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>LuminaUI · 图像工作台</title>
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#171717;color:#ddd;font:12px system-ui,"Microsoft YaHei",sans-serif}button,input{font:inherit}button{color:inherit;cursor:pointer}button:focus-visible,[role=tab]:focus-visible{outline:1px solid #bbb;outline-offset:-3px}[hidden]{display:none!important}
+.bar{height:38px;display:flex;align-items:center;background:#161616;border-bottom:1px solid #454545;padding-right:12px;gap:5px}.tabs{display:flex;align-items:stretch;height:100%;overflow-x:auto;min-width:0;scrollbar-width:none}.tabs::-webkit-scrollbar{display:none}.page-tab{display:flex;align-items:center;flex:0 0 180px;width:180px;min-width:100px;padding:0 9px 0 15px;gap:8px;border-right:1px solid #353535;border-bottom:1px solid transparent;color:#999;cursor:pointer;user-select:none}.page-tab:hover{background:#202020}.page-tab[aria-selected=true]{background:#252525;color:#eee;border-bottom-color:#ddd}.page-title{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.close,.add{border:0;background:transparent;border-radius:4px;display:grid;place-items:center;padding:0;color:#999;font-size:19px;width:24px;height:24px;flex-shrink:0}.close{font-size:16px}.close:hover,.add:hover{background:#3b3b3b;color:#fff}.status{margin-left:auto;font-size:10px;color:#919191;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}.pages{height:calc(100dvh - 38px);position:relative}iframe{border:0;width:100%;height:100%;display:block;background:#171717}.menu{position:fixed;z-index:10;min-width:156px;padding:5px;background:#252525;border:1px solid #454545;border-radius:7px;box-shadow:0 8px 28px #0008}.menu button{display:block;width:100%;text-align:left;border:0;border-radius:4px;background:transparent;padding:8px 12px}.menu button:hover{background:#393939}dialog{color:#ddd;background:#242424;border:1px solid #484848;border-radius:10px;padding:22px;width:340px;max-width:calc(100vw - 32px);box-shadow:0 16px 60px #0008}dialog::backdrop{background:#0008}dialog h2{font-size:15px;margin:0 0 16px}dialog p{font-size:12px;color:#aaa;line-height:1.7}dialog input{width:100%;padding:9px;background:#191919;color:#eee;border:1px solid #555;border-radius:5px}dialog footer{display:flex;justify-content:flex-end;gap:8px;margin-top:20px}dialog button{padding:7px 14px;border:1px solid #555;border-radius:5px;background:#333}dialog button:last-child{background:#ddd;color:#222}@media(max-width:650px){.page-tab{flex-basis:145px;width:145px}.status{display:none}.tabs{flex:0 1 auto}.add{margin-right:5px}}
+</style></head><body>
+<header class="bar"><a href="/" title="返回主页" style="color:#aaa;text-decoration:none;padding:0 14px;font-size:12px;flex-shrink:0">LuminaUI</a><div class="tabs" role="tablist" aria-label="创作页面"></div><button class="add" title="新建创作页" aria-label="新建创作页">+</button><span class="status" aria-live="polite"></span></header>
+<main class="pages"></main>
+<div class="menu" role="menu" hidden><button role="menuitem" data-action="rename">重命名</button><button role="menuitem" data-action="close">关闭页面</button></div>
+<dialog id="rename"><form><h2>重命名创作页</h2><input aria-label="页面名称" maxlength="60" required autocomplete="off"><footer><button type="button" data-cancel>取消</button><button type="submit">保存</button></footer></form></dialog>
+<dialog id="close"><h2>关闭这个创作页？</h2><p>本页未保存的参数和草稿将丢失。已提交的生成任务会继续运行，完成的图片可在媒体资产中查看。</p><footer><button data-cancel>取消</button><button id="confirm-close">关闭页面</button></footer></dialog>
+<script>
+// Separate documents retain every tool's form, canvas, mask and async state.
+// Only the active document holds an SSE connection (HTTP/1 connection limits).
+const pages=[],strip=document.querySelector('.tabs'),host=document.querySelector('.pages'),menu=document.querySelector('.menu');
+let active=null,context=null,renaming=null,closing=null,serial=0;
+let sidebarState=null;
+const sharedInputs=new Set(),deletedInputs=new Set();
+window.luminaWorkspace={inputs(names){for(const name of names)if(!deletedInputs.has(name))sharedInputs.add(name);return [...sharedInputs];},changed(path,data){if(path==='/api/upload'&&data?.image){deletedInputs.delete(data.image);sharedInputs.add(data.image);}if(path==='/api/media/delete'&&data?.type==='input'){const name=data.subfolder?data.subfolder+'/'+data.filename:data.filename;sharedInputs.delete(name);deletedInputs.add(name);}for(const p of pages){const win=p.frame.contentWindow;win.dispatchEvent(new win.CustomEvent('lumina-shared-data',{detail:{path,rows:path==='/api/prompts'?data:null}}));}}};
+function rememberSidebar(){const doc=active?.frame.contentDocument;if(!doc?.body)return;sidebarState={drawer:['prompts','models','history'].find(name=>doc.body.classList.contains(name+'-open'))||null,promptSearch:doc.querySelector('[aria-label="搜索提示词"]')?.value||'',modelSearch:doc.querySelector('[aria-label="搜索模型"]')?.value||'',search:doc.querySelector('#asset-search')?.value||'',assetMode:doc.querySelector('[data-assets].active')?.dataset.assets||'output'};}
+function restoreSidebar(p){if(!sidebarState)return;const win=p.frame.contentWindow;win.dispatchEvent(new win.CustomEvent('lumina-sidebar-state',{detail:sidebarState}));}
+const renameDialog=document.querySelector('#rename'),closeDialog=document.querySelector('#close');
+function hideMenu(){menu.hidden=true;}
+function activate(page){
+  rememberSidebar();hideMenu();active=page;page.frame.contentWindow.studioPage?.acknowledgeResults();
+  for(const p of pages){const on=p===page;p.frame.hidden=!on;p.tab.setAttribute('aria-selected',String(on));p.tab.tabIndex=on?0:-1;p.frame.contentWindow.studioPage?.setActive(on);}
+  restoreSidebar(page);page.tab.scrollIntoView({block:'nearest',inline:'nearest'});sync();
+}
+function sync(){
+  for(const p of pages){const doc=p.frame.contentDocument;if(!doc)continue;const label=p.name||doc.querySelector('#tool-title')?.textContent||'新创作';p.label.textContent=label;p.tab.title=label;p.close.setAttribute('aria-label','关闭 '+label);p.frame.title=label;}
+  document.querySelector('.status').textContent=active?.frame.contentWindow.studioPage?.taskStatus()||'';
+}
+function addPage(){
+  const p={id:++serial,name:''};p.tab=document.createElement('div');p.tab.className='page-tab';p.tab.setAttribute('role','tab');p.tab.id='page-tab-'+p.id;p.tab.setAttribute('aria-controls','page-'+p.id);
+  p.label=document.createElement('span');p.label.className='page-title';p.label.textContent='新创作';p.close=document.createElement('button');p.close.className='close';p.close.textContent='×';p.close.title='关闭页面';p.tab.append(p.label,p.close);
+  p.frame=document.createElement('iframe');p.frame.id='page-'+p.id;p.frame.title='创作页';p.frame.setAttribute('role','tabpanel');p.frame.setAttribute('aria-labelledby',p.tab.id);p.frame.src='/?studio=1&page='+p.id;
+  p.frame.onload=()=>{p.frame.contentWindow.studioPage?.setActive(p===active);if(p===active)restoreSidebar(p);p.frame.contentDocument.addEventListener('pointerdown',hideMenu);sync();};
+  p.tab.onclick=()=>activate(p);p.close.onclick=e=>{e.stopPropagation();requestClose(p);};
+  p.tab.oncontextmenu=e=>{e.preventDefault();context=p;menu.hidden=false;menu.style.left=Math.min(e.clientX,innerWidth-menu.offsetWidth-6)+'px';menu.style.top=Math.min(e.clientY,innerHeight-menu.offsetHeight-6)+'px';menu.querySelector('button').focus();};
+  p.tab.onkeydown=e=>{if(e.target!==p.tab)return;const i=pages.indexOf(p);let next;if(e.key==='ArrowRight')next=pages[(i+1)%pages.length];if(e.key==='ArrowLeft')next=pages[(i-1+pages.length)%pages.length];if(e.key==='Home')next=pages[0];if(e.key==='End')next=pages.at(-1);if(next){e.preventDefault();activate(next);next.tab.focus();}if(e.key==='Delete')requestClose(p);if(e.key==='F2'){e.preventDefault();renamePage(p);}};
+  pages.push(p);strip.append(p.tab);host.append(p.frame);activate(p);
+}
+function renamePage(p){hideMenu();renaming=p;renameDialog.querySelector('input').value=p.label.textContent;renameDialog.showModal();renameDialog.querySelector('input').select();}
+function requestClose(p){hideMenu();const state=p.frame.contentWindow.studioPage;if(state&&!state.canClose()){activate(p);p.frame.contentDocument.querySelector('#error').textContent='正在上传或提交，请完成后再关闭页面。';return;}if(state?.hasContent()){closing=p;closeDialog.showModal();}else removePage(p);}
+function removePage(p){const i=pages.indexOf(p);if(i<0)return;p.frame.contentWindow.studioPage?.setActive(false);p.frame.remove();p.tab.remove();pages.splice(i,1);if(!pages.length)addPage();else if(active===p)activate(pages[Math.min(i,pages.length-1)]);}
+document.querySelector('.add').onclick=addPage;
+menu.onclick=e=>{if(e.target.dataset.action==='rename')renamePage(context);if(e.target.dataset.action==='close')requestClose(context);};
+document.addEventListener('pointerdown',e=>{if(!menu.contains(e.target))hideMenu();});
+document.addEventListener('keydown',e=>{if(e.key==='Escape')hideMenu();});
+renameDialog.querySelector('form').onsubmit=e=>{e.preventDefault();const value=renameDialog.querySelector('input').value.trim();if(!value)return;renaming.name=value;sync();renameDialog.close();};
+document.querySelectorAll('[data-cancel]').forEach(b=>b.onclick=()=>b.closest('dialog').close());
+document.querySelector('#confirm-close').onclick=()=>{closeDialog.close();removePage(closing);};
+window.addEventListener('beforeunload',e=>{if(pages.some(p=>p.frame.contentWindow.studioPage?.hasContent())){e.preventDefault();e.returnValue='';}});
+setInterval(sync,1000);addPage();
+</script></body></html>

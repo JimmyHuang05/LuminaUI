@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>提示词库 · LuminaUI</title>
+<link rel="stylesheet" href="/resources.css">
+<script src="/prompt-search.js" defer></script><script src="/prompt-ratings.js" defer></script><script src="/prompt-fields.js"></script><script src="/resources.js" defer></script><link rel="stylesheet" href="/studio-shell.css"><script src="/studio-shell.js" defer></script></head>
+<body data-lumina-page="resources" data-studio-page="resources"><div class="page">
+<header><a class="brand" href="/" aria-label="LuminaUI 主页">Lumina<span>UI</span></a><nav aria-label="导航"><a href="/workbench" target="_blank" rel="noopener">工作台 ↗</a><a href="/image-reader" target="_blank" rel="noopener">图片反推 ↗</a></nav></header>
+<main><section class="intro"><div><p class="eyebrow">THE COLLECTION</p><h1>提示词库<span> / 创作素材</span></h1></div><p class="intro-note">收藏画面，延续灵感。</p></section>
+<div class="collection-types"><div role="group" aria-label="资源类型"><button data-library-view="prompt" aria-pressed="true">提示词库</button><button data-library-view="output" aria-pressed="false">输出库</button></div><button id="new-prompt" hidden>＋ 新建提示词</button><button id="new-character" hidden>＋ 新建人物卡</button></div>
+<div class="toolbar"><div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input id="search" type="search" aria-label="搜索资源" placeholder="搜索标题、标签、摘要或正文" autocomplete="off"></div><div class="toolbar-actions">
+<details class="toolbar-menu" id="rating-menu"><summary aria-label="年龄分级"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><ellipse cx="12" cy="12" rx="3.5" ry="8.5"/><path d="M4 9h16M4 15h16"/></svg><span id="rating-label">全部分级</span><i></i></summary><div class="menu-panel" role="group" aria-label="年龄分级选项"><label class="menu-option"><input type="radio" name="rating" value="" checked><span>全部分级</span></label><label class="menu-option"><input type="radio" name="rating" value="sfw"><span>G</span></label><label class="menu-option"><input type="radio" name="rating" value="r15"><span>R-15</span></label><label class="menu-option"><input type="radio" name="rating" value="nsfw"><span>R-18</span></label></div></details>
+<details class="toolbar-menu" id="sort-menu"><summary aria-label="排序"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h10M4 11h7M4 16h4M18 5v14m-3-3 3 3 3-3"/></svg><span id="sort-label">最近使用</span><i></i></summary><div class="menu-panel" role="group" aria-label="排序选项"><label class="menu-option"><input type="radio" name="sort" value="recent" checked><span>最近使用</span></label><label class="menu-option"><input type="radio" name="sort" value="title"><span>标题 A–Z</span></label><label class="menu-option"><input type="radio" name="sort" value="relevance"><span>搜索相关度</span></label></div></details>
+<details class="toolbar-menu" id="filter-menu"><summary aria-label="过滤标签"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 5h16l-6 7v6l-4 2v-8z"/></svg><span>过滤</span><span id="filter-count" class="filter-count" hidden></span><i></i></summary><div class="menu-panel tag-panel"><div class="filter-heading"><span>标签 · 匹配任一</span><button id="clear-tags" class="text-button" type="button">清除</button></div><input id="tag-search" type="search" aria-label="搜索标签" placeholder="搜索标签" autocomplete="off"><div id="tags" class="tag-options" role="group" aria-label="标签筛选"></div><p id="no-tags" hidden>没有匹配的标签</p></div></details>
+</div></div>
+<div class="result-line"><button id="reset" class="text-button" hidden>清除筛选</button></div>
+<div id="gallery" class="gallery" aria-label="资源瀑布流"></div><div id="empty" class="empty" hidden><p id="empty-message"></p><button id="retry" hidden>重新加载</button></div>
+<section id="output-panel" hidden aria-label="生成输出"><div class="toolbar"><input id="output-search" type="search" aria-label="搜索生成图片" placeholder="搜索标题、提示词、文件名或提示词 ID"><button id="output-refresh">刷新</button></div><p id="output-count"></p><div id="output-status" role="status"></div><section id="output-grid" aria-label="全部生成图片"></section></section></main><footer>LUMINA — PERSONAL COLLECTION</footer></div>
+<dialog id="detail" class="lumina-detail" aria-labelledby="detail-title">
+  <div class="ld-layout">
+    <section class="ld-main" aria-label="资源作品">
+      <div class="ld-heading">
+        <p class="ld-eyebrow" id="detail-kind">提示词</p>
+        <h2 id="detail-title"></h2>
+        <p class="ld-subtitle" id="detail-summary"></p>
+        <div class="ld-tags"><span id="detail-rating" class="ld-rating"></span><div id="detail-tags" class="ld-tag-list"></div></div>
+      </div>
+      <div class="ld-stage-toolbar" id="prompt-works-heading"><h3>作品 <span id="prompt-image-count" class="ld-count"></span></h3><span class="ld-hint">最近生成</span><button id="refresh-prompt-images" class="ld-icon" type="button" aria-label="刷新作品" title="刷新作品"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 7a8 8 0 1 0 1 7M20 3v5h-5"/></svg></button></div>
+      <section id="prompt-images-stage" class="ld-stage ld-gallery" aria-label="此提示词的生成作品"><p id="prompt-image-status" class="ld-empty" role="status"></p><div id="prompt-image-grid" class="ld-masonry"></div></section>
+      <div id="detail-cover" class="ld-stage ld-photo" hidden></div>
+    </section>
+    <aside class="ld-inspector" aria-label="资源信息与提示词">
+      <div class="ld-inspector-head"><h3 id="detail-text-heading">提示词正文</h3></div>
+      <div id="detail-body" class="ld-prose" tabindex="0"></div>
+      <section class="ld-section"><h3>资源信息</h3><dl class="ld-facts"><div><dt>类型</dt><dd id="detail-type"></dd></div><div><dt>来源</dt><dd id="detail-source"></dd></div><div id="prompt-id-fact"><dt>提示词 ID</dt><dd id="detail-prompt-id" class="ld-id"></dd></div></dl></section>
+    </aside>
+  </div>
+  <button id="close" class="ld-icon ld-close" type="button" aria-label="关闭详情" title="关闭详情（Esc）" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+  <footer class="ld-footer">
+    <button id="detail-back" class="ld-back" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5-7 7 7 7M3 12h18"/></svg><span>返回提示词库</span></button>
+    <nav class="ld-pagination" id="detail-pagination" aria-label="浏览资源"><button id="previous" class="ld-icon" type="button" aria-label="上一条资源" title="上一条（←）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><span id="detail-position" aria-live="polite"></span><button id="next" class="ld-icon" type="button" aria-label="下一条资源" title="下一条（→）"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button></nav>
+    <div class="ld-actions"><span id="copy-status" class="ld-feedback" role="status"></span><button id="edit-prompt" class="ld-button" type="button" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m16 3 5 5-12 12H4v-5L16 3ZM13 6l5 5"/></svg><span>编辑提示词</span></button><button id="edit-character" class="ld-button" type="button" hidden>编辑人物卡</button><button id="copy" class="ld-button" type="button" aria-label="复制提示词"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></svg><span>复制提示词</span></button><a id="use" class="ld-button ld-primary" target="_blank" rel="noopener"><span>带入工作台</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a></div>
+  </footer>
+</dialog>
+<dialog id="character-editor" aria-labelledby="character-editor-title">
+<form id="character-form"><div class="detail-head"><span id="character-editor-title">新建人物卡</span><button type="button" id="cancel-character" class="icon-button" aria-label="关闭人物卡编辑">×</button></div>
+<div class="character-fields"><label class="reference-picker"><img id="character-preview" hidden alt="人物参考图"><span id="reference-label">上传参考图片</span><input id="character-file" type="file" accept="image/png,image/jpeg,image/webp" aria-label="上传人物参考图"></label>
+<div class="character-inputs"><label>人物名称<input id="character-title" required maxlength="60" autocomplete="off"></label><label>人物描述<textarea id="character-description" rows="5" maxlength="5000" placeholder="可留空"></textarea></label><section class="character-prompt-fields"><h3>人物特征</h3><p class="character-field-hint">独立设置身份、五官、发型、体型、肤色与气质；表情、动作和场景由生成提示词决定。</p><div id="character-field-inputs"></div><label id="character-legacy-label" hidden>原有补充内容<textarea id="character-legacy" rows="4" maxlength="10000"></textarea></label><textarea id="character-prompt" hidden></textarea></section><label>标签<input id="character-tags" placeholder="用逗号分隔"></label><label>年龄分级<select id="character-rating"><option value="sfw">G</option><option value="r15">R-15</option><option value="nsfw">R-18</option></select></label></div></div>
+<div class="detail-actions"><span id="character-status" role="status"></span><button id="save-character" type="submit">保存人物卡</button></div></form></dialog>
+<dialog id="prompt-create-overlay" aria-label="提示词编辑器" hidden><iframe id="prompt-create-frame" title="提示词编辑器"></iframe></dialog><dialog id="output-detail" class="lumina-detail" aria-labelledby="output-title">
+  <div class="ld-layout">
+    <section class="ld-main" aria-label="生成作品">
+      <div class="ld-heading"><p class="ld-eyebrow">输出</p><h2 id="output-title"></h2><p id="output-subtitle" class="ld-subtitle"></p></div>
+      <div class="ld-stage ld-photo"><img id="output-photo" alt="生成作品"></div>
+    </section>
+    <aside class="ld-inspector" aria-label="生成信息与提示词">
+      <div class="ld-inspector-head"><h3>生成信息</h3></div>
+      <dl class="ld-facts" id="output-meta"></dl>
+      <a id="output-origin" class="ld-origin" hidden></a>
+      <section class="ld-section"><h3>生成提示词</h3><pre class="ld-prose" id="output-prompt"></pre></section>
+      <section class="ld-section" id="output-snapshot" hidden><h3>提示词库原始提示词</h3><pre class="ld-prose" id="output-library"></pre></section>
+    </aside>
+  </div>
+  <button id="output-close" class="ld-icon ld-close" type="button" aria-label="关闭详情" title="关闭详情（Esc）" autofocus><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M6 18 18 6"/></svg></button>
+  <footer class="ld-footer"><button class="ld-back" type="button" data-detail-back><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 5-7 7 7 7M3 12h18"/></svg><span>返回输出库</span></button><nav class="ld-pagination" aria-label="浏览生成作品"><button id="output-prev" class="ld-icon" type="button" aria-label="上一张"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg></button><span id="output-position" aria-live="polite"></span><button id="output-next" class="ld-icon" type="button" aria-label="下一张"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg></button></nav><div class="ld-actions"><span id="output-copy-status" class="ld-feedback" role="status"></span><button id="output-copy" class="ld-button" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M15 8V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h3"/></svg><span>复制提示词</span></button><button id="output-original" class="ld-button ld-primary" type="button"><span>打开原图</span><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></button></div></footer>
+</dialog>
+<script src="/generated.js"></script></body></html>

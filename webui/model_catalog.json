@@ -1,0 +1,274 @@
+{
+  "version": 1,
+  "categories": {
+    "checkpoints": {
+      "label": "完整生图模型",
+      "description": "独立模型包，用于生成图片。"
+    },
+    "diffusion_models": {
+      "label": "生图与编辑模型",
+      "description": "负责生成或修改图片，需要配套组件。"
+    },
+    "loras": {
+      "label": "风格与人物扩展",
+      "description": "搭配兼容的主模型，添加画风或人物特征。"
+    },
+    "text_encoders": {
+      "label": "提示词理解组件",
+      "description": "帮助模型理解你的描述，通常无需手动调整。"
+    },
+    "vae": {
+      "label": "图片解码组件",
+      "description": "把模型结果转换成图片，通常无需手动调整。"
+    },
+    "upscale_models": {
+      "label": "图片放大模型",
+      "description": "放大图片并改善细节。"
+    },
+    "SEEDVR2": {
+      "label": "细节增强放大模型",
+      "description": "SeedVR2 生成式放大及其解码组件，用于补充纹理细节。"
+    }
+  },
+  "models": [
+    {
+      "id": "loras/Qwen-Image-2.1-viggle-turbo-v0.2.1-6step-lora-r128.safetensors",
+      "category": "loras",
+      "name": "Qwen-Image-2.1-viggle-turbo-v0.2.1-6step-lora-r128.safetensors",
+      "label": "Qwen 2.1 · 快速生图扩展",
+      "bytes": 679604800,
+      "source": "https://huggingface.co/Viggle/Qwen-Image-2.1-viggle-turbo",
+      "download_url": "https://huggingface.co/Viggle/Qwen-Image-2.1-viggle-turbo/resolve/main/Qwen-Image-2.1-viggle-turbo-v0.2.1-6step-lora-r128.safetensors",
+      "tags": []
+    },
+    {
+      "id": "vae/ae.safetensors",
+      "category": "vae",
+      "name": "ae.safetensors",
+      "label": "图片解码组件 · AE",
+      "bytes": 335304388,
+      "source": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "download_url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/vae/ae.safetensors",
+      "tags": []
+    },
+    {
+      "id": "vae/qwen_image_2.1_vae_bf16.safetensors",
+      "category": "vae",
+      "name": "qwen_image_2.1_vae_bf16.safetensors",
+      "label": "Qwen 2.1 · 图片解码组件",
+      "bytes": 675509688,
+      "source": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1",
+      "download_url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/vae/qwen_image_2.1_vae_bf16.safetensors",
+      "tags": []
+    },
+    {
+      "id": "vae/qwen_image_vae.safetensors",
+      "category": "vae",
+      "name": "qwen_image_vae.safetensors",
+      "label": "Krea2 · 图片解码组件",
+      "bytes": 253806246,
+      "source": "https://huggingface.co/Comfy-Org/Krea-2",
+      "download_url": "https://huggingface.co/Comfy-Org/Krea-2/resolve/main/vae/qwen_image_vae.safetensors",
+      "tags": []
+    },
+    {
+      "id": "text_encoders/qwen3.5_9b_qwen_image_2.1_pe_i2i.int8_convrot.safetensors",
+      "category": "text_encoders",
+      "name": "qwen3.5_9b_qwen_image_2.1_pe_i2i.int8_convrot.safetensors",
+      "label": "Qwen · 编辑指令优化组件",
+      "bytes": 9471072252,
+      "source": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1",
+      "download_url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/text_encoders/qwen3.5_9b_qwen_image_2.1_pe_i2i.int8_convrot.safetensors",
+      "tags": []
+    },
+    {
+      "id": "text_encoders/qwen3vl_4b_fp8_scaled.safetensors",
+      "category": "text_encoders",
+      "name": "qwen3vl_4b_fp8_scaled.safetensors",
+      "label": "Krea2 · 提示词理解组件",
+      "bytes": 5242467968,
+      "source": "https://huggingface.co/Comfy-Org/Krea-2",
+      "download_url": "https://huggingface.co/Comfy-Org/Krea-2/resolve/main/text_encoders/qwen3vl_4b_fp8_scaled.safetensors",
+      "tags": []
+    },
+    {
+      "id": "text_encoders/qwen3vl_8b_int8_convrot.safetensors",
+      "category": "text_encoders",
+      "name": "qwen3vl_8b_int8_convrot.safetensors",
+      "label": "Qwen 2.1 · 提示词理解组件",
+      "bytes": 9350798360,
+      "source": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1",
+      "download_url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/text_encoders/qwen3vl_8b_int8_convrot.safetensors",
+      "tags": []
+    },
+    {
+      "id": "text_encoders/qwen_3_4b.safetensors",
+      "category": "text_encoders",
+      "name": "qwen_3_4b.safetensors",
+      "label": "Qwen 3 · 提示词理解组件",
+      "bytes": 8044982048,
+      "source": "https://huggingface.co/Comfy-Org/z_image_turbo",
+      "download_url": "https://huggingface.co/Comfy-Org/z_image_turbo/resolve/main/split_files/text_encoders/qwen_3_4b.safetensors",
+      "tags": []
+    },
+    {
+      "id": "diffusion_models/moodyCutieMixFreeKrea2_v60_nvfp4.safetensors",
+      "category": "diffusion_models",
+      "name": "moodyCutieMixFreeKrea2_v60_nvfp4.safetensors",
+      "label": "Krea2 · Moody Cutie",
+      "bytes": 8313985224,
+      "source": "https://civitai.red/models/2764429/moody-cutie-mix-free-krea2-uncensored",
+      "download_url": null,
+      "tags": [
+        "人像写真",
+        "氛围滤镜"
+      ],
+      "selection_key": "cutie"
+    },
+    {
+      "id": "diffusion_models/moodyKrea2MixUncensoredV8SEGoes_v80_nvfp4.safetensors",
+      "category": "diffusion_models",
+      "name": "moodyKrea2MixUncensoredV8SEGoes_v80_nvfp4.safetensors",
+      "label": "Krea2 · Moody Mix",
+      "bytes": 8313977448,
+      "source": "https://civitai.red/models/2731187/moody-krea-2-mix-uncensored-v8se-goes-ancient-v8-is-now-free-v8se-v8?modelVersionId=3209007",
+      "download_url": null,
+      "tags": [
+        "RAW质感",
+        "真实肌理"
+      ],
+      "selection_key": "mix_v8"
+    },
+    {
+      "id": "diffusion_models/qwen_image_2.1_int8_convrot.safetensors",
+      "category": "diffusion_models",
+      "name": "qwen_image_2.1_int8_convrot.safetensors",
+      "label": "Qwen 2.1 · 生图与图片编辑",
+      "bytes": 7256783064,
+      "source": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1",
+      "download_url": "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/main/diffusion_models/qwen_image_2.1_int8_convrot.safetensors",
+      "tags": [
+        "中文理解",
+        "文字排版"
+      ],
+      "selection_key": "qwen"
+    },
+    {
+      "id": "upscale_models/Real_HAT_GAN_SRx4.pth",
+      "category": "upscale_models",
+      "name": "Real_HAT_GAN_SRx4.pth",
+      "label": "HAT · 图片细节放大",
+      "bytes": 170277017,
+      "source": "https://huggingface.co/ad-astra-video/upscalers/blob/main/Real_HAT_GAN_SRx4.pth",
+      "download_url": "https://huggingface.co/ad-astra-video/upscalers/resolve/main/Real_HAT_GAN_SRx4.pth",
+      "tags": []
+    },
+    {
+      "id": "SEEDVR2/seedvr2_ema_3b_fp8_e4m3fn.safetensors",
+      "category": "SEEDVR2",
+      "name": "seedvr2_ema_3b_fp8_e4m3fn.safetensors",
+      "label": "SeedVR2 3B · 细节增强",
+      "bytes": 3391544696,
+      "sha256": "3bf1e43ebedd570e7e7a0b1b60d6a02e105978f505c8128a241cde99a8240cff",
+      "source": "https://huggingface.co/numz/SeedVR2_comfyUI",
+      "download_url": "https://huggingface.co/numz/SeedVR2_comfyUI/resolve/main/seedvr2_ema_3b_fp8_e4m3fn.safetensors",
+      "tags": [
+        "细节增强"
+      ]
+    },
+    {
+      "id": "SEEDVR2/ema_vae_fp16.safetensors",
+      "category": "SEEDVR2",
+      "name": "ema_vae_fp16.safetensors",
+      "label": "SeedVR2 · 图片解码组件",
+      "bytes": 501324814,
+      "sha256": "20678548f420d98d26f11442d3528f8b8c94e57ee046ef93dbb7633da8612ca1",
+      "source": "https://huggingface.co/numz/SeedVR2_comfyUI",
+      "download_url": "https://huggingface.co/numz/SeedVR2_comfyUI/resolve/main/ema_vae_fp16.safetensors",
+      "tags": [
+        "细节增强"
+      ]
+    },
+    {
+      "id": "loras/krea2_identity_edit_v1_2_r128.safetensors",
+      "category": "loras",
+      "name": "krea2_identity_edit_v1_2_r128.safetensors",
+      "label": "Krea2 · 图片编辑扩展 v1.2（r128）",
+      "bytes": 914159744,
+      "sha256": "f53db0bb4b081d638f196865cbc9f055379704fafb788336784fc1ccde18d825",
+      "source": "https://huggingface.co/conradlocke/krea2-identity-edit",
+      "download_url": "https://huggingface.co/conradlocke/krea2-identity-edit/resolve/main/krea2_identity_edit_v1_2_r128.safetensors",
+      "tags": [
+        "图片编辑"
+      ]
+    },
+    {
+      "id": "loras/Qwen21-换头bfs_head_v1.1_qwen_2.1.safetensors",
+      "category": "loras",
+      "name": "Qwen21-换头bfs_head_v1.1_qwen_2.1.safetensors",
+      "label": "Qwen 2.1 · 换头 v1.1",
+      "bytes": 260096144,
+      "sha256": "d1d748d5601077f3b6d05766f6823510e901970d916afa404a97e85dc92fa88e",
+      "tags": [
+        "图片编辑"
+      ]
+    },
+    {
+      "id": "loras/Qwen21-换身bfs_body_swap_v1.0_qwen_2.1.safetensors",
+      "category": "loras",
+      "name": "Qwen21-换身bfs_body_swap_v1.0_qwen_2.1.safetensors",
+      "label": "Qwen 2.1 · 换身 v1.0",
+      "bytes": 209753576,
+      "sha256": "7dc0a53aba4dbc70c204f498936a619d226559da11011f748c389189af46b664",
+      "tags": [
+        "图片编辑"
+      ]
+    },
+    {
+      "id": "loras/Qwen21-水印移除watermark_remover_v2.safetensors",
+      "category": "loras",
+      "name": "Qwen21-水印移除watermark_remover_v2.safetensors",
+      "label": "Qwen 2.1 · 水印移除 v2",
+      "bytes": 79744288,
+      "sha256": "29fe23b60fde79596aa28ee7080a4cd98c2cfe8055f22753ccf51bae502df5a1",
+      "tags": [
+        "图片编辑"
+      ]
+    },
+    {
+      "id": "loras/Qwen21-无位移一致性consistency.safetensors",
+      "category": "loras",
+      "name": "Qwen21-无位移一致性consistency.safetensors",
+      "label": "Qwen 2.1 · 抗位移一致性",
+      "bytes": 159436496,
+      "sha256": "4f44ada1be2189cc23b3d010f9603543403f48454e2f76842a3d30109b20bd63",
+      "tags": [
+        "图片编辑"
+      ]
+    },
+    {
+      "id": "diffusion_models/rayQwen21_v1Int8Convrot.safetensors",
+      "category": "diffusion_models",
+      "name": "rayQwen21_v1Int8Convrot.safetensors",
+      "label": "Ray Qwen 2.1 · 编辑强化 · INT8",
+      "bytes": 7256797328,
+      "tags": [
+        "编辑强化",
+        "INT8"
+      ]
+    }
+  ],
+  "integrations": {
+    "seedvr2": {
+      "repository": "https://github.com/numz/ComfyUI-SeedVR2_VideoUpscaler",
+      "revision": "4490bd1f482e026674543386bb2a4d176da245b9",
+      "directory": "ComfyUI/custom_nodes/seedvr2_videoupscaler",
+      "requirements": "ComfyUI/custom_nodes/seedvr2_videoupscaler/requirements.txt",
+      "workflow": "workflows/seedvr2_3b_upscale_api.json",
+      "models": [
+        "SEEDVR2/seedvr2_ema_3b_fp8_e4m3fn.safetensors",
+        "SEEDVR2/ema_vae_fp16.safetensors"
+      ]
+    }
+  }
+}

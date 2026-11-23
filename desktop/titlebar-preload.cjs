@@ -1,0 +1,2 @@
+const {contextBridge,ipcRenderer}=require('electron');
+contextBridge.exposeInMainWorld('luminaTitlebar',{action:(name,data)=>ipcRenderer.send('titlebar-action',name,data),onState:callback=>ipcRenderer.on('titlebar-state',(_event,state)=>callback(state)),onEngine:callback=>ipcRenderer.on('engine-state',(_event,state)=>callback(state)),onRename:callback=>ipcRenderer.on('tab-rename',(_event,id)=>callback(id))});

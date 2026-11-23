@@ -1,0 +1,108 @@
+{
+  "1": {
+    "class_type": "UNETLoader",
+    "inputs": {
+      "unet_name": "qwen_image_2.1_int8_convrot.safetensors",
+      "weight_dtype": "default"
+    }
+  },
+  "2": {
+    "class_type": "CLIPLoader",
+    "inputs": {
+      "clip_name": "qwen3vl_8b_int8_convrot.safetensors",
+      "type": "qwen_image",
+      "device": "default"
+    }
+  },
+  "3": {
+    "class_type": "VAELoader",
+    "inputs": {
+      "vae_name": "qwen_image_2.1_vae_bf16.safetensors"
+    }
+  },
+  "4": {
+    "class_type": "TextEncodeQwenImage21",
+    "inputs": {
+      "clip": [
+        "2",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ],
+      "prompt": "A photorealistic live-action interpretation of the DeepSeek blue whale mascot, a single extremely chubby adorable blue whale floating underwater, full body visible, huge round plump belly, broad rounded head, small gentle black eyes, a charming subtle smile, short rounded pectoral flippers and a clearly visible horizontal whale tail. Vivid rich ocean-blue skin with a lighter pale blue belly, realistic smooth wet whale skin with fine natural texture, soft folds around the plump belly. Three-quarter front view, the whale looking toward the camera, expressive and lovable, believable cinematic creature photography rather than a cartoon or toy. Sunbeams penetrating turquoise water from above, a few tiny bubbles, subtle suspended particles, softly blurred deep ocean background, beautiful natural underwater caustics across the whale, high-end wildlife movie still, detailed realistic lighting, the blue fat whale fills most of the frame, centered vertical portrait composition with breathing room around the tail and flippers, no lettering, no watermark.",
+      "negative_prompt": "",
+      "resolution": 1024
+    }
+  },
+  "5": {
+    "class_type": "EmptyLatentImage",
+    "inputs": {
+      "width": 864,
+      "height": 1152,
+      "batch_size": 1
+    }
+  },
+  "6": {
+    "class_type": "QwenImage21Cache",
+    "inputs": {
+      "model": [
+        "1",
+        0
+      ],
+      "device": "auto",
+      "dtype": "default"
+    }
+  },
+  "7": {
+    "class_type": "KSampler",
+    "inputs": {
+      "model": [
+        "6",
+        0
+      ],
+      "positive": [
+        "4",
+        0
+      ],
+      "negative": [
+        "4",
+        1
+      ],
+      "latent_image": [
+        "5",
+        0
+      ],
+      "seed": 2026093001,
+      "steps": 40,
+      "cfg": 1.0,
+      "sampler_name": "euler",
+      "scheduler": "simple",
+      "denoise": 1.0
+    }
+  },
+  "8": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": [
+        "7",
+        0
+      ],
+      "vae": [
+        "3",
+        0
+      ]
+    }
+  },
+  "9": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": [
+        "8",
+        0
+      ],
+      "filename_prefix": "Qwen21/deepseek_whale_original"
+    }
+  }
+}

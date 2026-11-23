@@ -1,0 +1,6 @@
+aiohttp
+numpy
+pillow
+psutil
+safetensors
+scipy

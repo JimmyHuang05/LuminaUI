@@ -1,0 +1,26 @@
+[
+  {
+    "file": "ComfyUI\\models\\diffusion_models\\qwen_image_2.1_int8_convrot.safetensors",
+    "sha256": "cb74113cb03faecd79611b01fd7fd642f0aa60d6f0b95086abee214d75eaa57d",
+    "revision": "cb504a4090723e43f17ad01cec0359490e2de613",
+    "bytes": 7256783064
+  },
+  {
+    "file": "ComfyUI\\models\\text_encoders\\qwen3vl_8b_int8_convrot.safetensors",
+    "sha256": "8bfd0f6e12abf2d2d697ecc888e5e90b0d6741d6708f05799f53afa560452e8f",
+    "revision": "cb504a4090723e43f17ad01cec0359490e2de613",
+    "bytes": 9350798360
+  },
+  {
+    "file": "ComfyUI\\models\\vae\\qwen_image_2.1_vae_bf16.safetensors",
+    "sha256": "bb21f7473051e1ac368515dd3f2e15cd44d7a11748ee8823e1ddca3e4876b7c9",
+    "revision": "cb504a4090723e43f17ad01cec0359490e2de613",
+    "bytes": 675509688
+  },
+  {
+    "file": "ComfyUI\\models\\loras\\Qwen-Image-2.1-viggle-turbo-v0.2.1-6step-lora-r128.safetensors",
+    "sha256": "bafb91d0047df3f9b8a5a850b0c967f051164314d8aad778dfa34d9c24ec345b",
+    "revision": "bb26a0f38e5fe6c124aaccc9187a87eed5d9ed13",
+    "bytes": 679604800
+  }
+]

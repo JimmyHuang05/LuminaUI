@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="zh-CN">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>首页 · LuminaUI</title><link rel="stylesheet" href="/home.css"><script src="/home.js" defer></script><link rel="stylesheet" href="/studio-shell.css"></head>
+<body data-lumina-page="home"><main class="home">
+<header class="masthead"><a class="wordmark" href="/" aria-label="LuminaUI 首页">Lumina<span>UI</span></a><div class="header-tools"><span id="engine-state" class="connection">连接中</span><span id="date"></span><button id="refresh" class="quiet" aria-label="刷新首页" title="刷新首页">↻</button></div></header>
+<div class="studio-layout">
+<aside class="studio-sidebar">
+<section class="welcome"><p id="welcome-time" class="eyebrow">欢迎回来</p><h1 id="greeting">让想象<br>继续发生。</h1><a class="primary" href="/workbench?mode=01_text_to_image"><span>开始创作</span><span aria-hidden="true">↗</span></a></section>
+<nav class="shortcuts" aria-label="快捷入口">
+<a href="/workbench"><span class="entry-icon"><svg viewBox="0 0 24 24"><path d="m12 3 2.7 6.3L21 12l-6.3 2.7L12 21l-2.7-6.3L3 12l6.3-2.7Z"/></svg></span><div><b>工作台</b><small>生成、编辑与画质提升</small></div><span class="entry-arrow">↗</span></a>
+<a href="/workbench?mode=03_image_edit"><span class="entry-icon"><svg viewBox="0 0 24 24"><path d="M12 4H5a2 2 0 0 0-2 2v13a2 2 0 0 0 2 2h13a2 2 0 0 0 2-2v-7M14 5l5 5M10 14l1-5 7-7 5 5-7 7-6 1Z"/></svg></span><div><b>图片编辑</b><small>修改画面与局部细节</small></div><span class="entry-arrow">↗</span></a>
+<a href="/workbench?mode=04_upscale"><span class="entry-icon"><svg viewBox="0 0 24 24"><path d="M14 3h7v7M21 3l-8 8M10 21H3v-7M3 21l8-8"/></svg></span><div><b>高清放大</b><small>提升图片尺寸与清晰度</small></div><span class="entry-arrow">↗</span></a>
+<a href="/resources"><span class="entry-icon"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6" rx="1"/><rect x="14" y="4" width="6" height="6" rx="1"/><rect x="4" y="14" width="6" height="6" rx="1"/><rect x="14" y="14" width="6" height="6" rx="1"/></svg></span><div><b>提示词库</b><small>提示词与生成作品</small></div><span class="entry-arrow">↗</span></a>
+<a href="/resources?view=output"><span class="entry-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="8" cy="9" r="1.5"/><path d="m3 17 5-5 4 4 4-6 5 7"/></svg></span><div><b>输出库</b><small>回顾每一张作品</small></div><span class="entry-arrow">↗</span></a>
+<a href="/pe-chat?mode=image&amp;new=1"><span class="entry-icon"><svg viewBox="0 0 24 24"><path d="M8 3H4v4m12-4h4v4M4 17v4h4m12-4v4h-4"/><circle cx="11" cy="11" r="4"/><path d="m14 14 4 4"/></svg></span><div><b>图片反推</b><small>让画面成为提示词</small></div><span class="entry-arrow">↗</span></a>
+<a href="/pe-chat?new=1"><span class="entry-icon"><svg viewBox="0 0 24 24"><path d="M4 4h16v12H9l-5 4Z"/><path d="M8 8h8M8 12h5"/></svg></span><div><b>自由对话</b><small>讨论灵感，打磨描述</small></div><span class="entry-arrow">↗</span></a>
+</nav>
+<section class="recent-panel"><div class="section-head"><h2>继续上次的灵感</h2><a href="/resources" class="text-link" aria-label="查看全部资源">↗</a></div><div id="recent-prompts" aria-live="polite"><p class="empty">正在读取使用记录…</p></div></section>
+</aside>
+<section class="works-panel"><div class="section-head gallery-heading"><div class="gallery-title"><h2>最近作品</h2><span class="collection-count"><b id="image-count">—</b> 张作品<span class="count-divider">/</span><b id="prompt-count">—</b> 份提示词</span></div><a href="/resources?view=output" class="text-link">全部作品 ↗</a></div><div id="recent-images" class="image-grid" aria-live="polite"><p class="empty">正在读取作品…</p></div></section>
+</div>
+<section class="hardware" aria-label="运行状态"><div class="queue-line"><span id="queue-dot" class="dot" aria-hidden="true"></span><span id="queue-label">正在连接…</span></div><div id="hardware-summary" class="hardware-summary"><span class="hardware-unavailable">读取设备状态…</span></div><button id="hardware-toggle" class="hardware-toggle" type="button" popovertarget="hardware-details" aria-expanded="false" aria-label="查看设备详情"><span>设备详情</span><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 12 4-4 4 4"/></svg></button></section>
+<footer><span>私人创作空间 · LUMINA</span><span id="updated" role="status"></span></footer>
+</main>
+<section id="hardware-details" class="hardware-details" popover aria-label="设备详情"><div class="hardware-details-heading"><h2>设备详情</h2><button type="button" popovertarget="hardware-details" popovertargetaction="hide" aria-label="关闭设备详情"><svg viewBox="0 0 20 20" aria-hidden="true"><path d="m6 6 8 8m0-8-8 8"/></svg></button></div><div id="hardware"><p class="empty">正在检测本机硬件…</p></div><p id="hardware-time"></p></section>
+</body></html>

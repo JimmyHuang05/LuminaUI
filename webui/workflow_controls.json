@@ -1,0 +1,178 @@
+{
+  "fields": {
+    "refine_steps": {
+      "label": "细化步数",
+      "default": 4,
+      "min": 1,
+      "max": 12,
+      "step": 1,
+      "help": "第二阶段补充纹理的采样步数。"
+    },
+    "upscale_factor": {
+      "label": "输出放大倍率",
+      "default": 4,
+      "choices": [
+        2,
+        4
+      ],
+      "basic": true,
+      "help": "相对基础尺寸，细化后由 SeedVR2 输出。"
+    },
+    "tile_steps": {
+      "label": "分块细化步数",
+      "default": 3,
+      "min": 1,
+      "max": 8,
+      "step": 1,
+      "help": "每块单独重绘，增加步数会明显增加耗时。"
+    },
+    "tile_strength": {
+      "label": "细节重绘强度",
+      "default": 0.15,
+      "min": 0.05,
+      "max": 0.35,
+      "step": 0.01,
+      "help": "较低保留原画面，较高增加细节与变化。"
+    },
+    "face_enabled": {
+      "label": "自动修脸",
+      "default": true,
+      "type": "boolean",
+      "basic": true,
+      "help": "检测到人脸后进行局部细化。"
+    },
+    "face_steps": {
+      "label": "修脸步数",
+      "default": 8,
+      "min": 1,
+      "max": 16,
+      "step": 1,
+      "help": "只影响检测到的人脸区域。"
+    },
+    "face_strength": {
+      "label": "修脸强度",
+      "default": 0.2,
+      "min": 0.05,
+      "max": 0.4,
+      "step": 0.01,
+      "help": "过高可能改变五官，推荐 0.20。"
+    },
+    "output_long_edge": {
+      "label": "最终长边",
+      "default": 4096,
+      "choices": [
+        2048,
+        3072,
+        4096
+      ],
+      "basic": true,
+      "help": "保持画面比例，由 SeedVR2 完成放大。"
+    },
+    "zit_scale": {
+      "label": "细化倍率",
+      "default": 1.7,
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "help": "ZIT 第二阶段的潜空间放大倍率。"
+    },
+    "character_strength": {
+      "label": "人物参考强度",
+      "default": 2.0,
+      "min": 1.0,
+      "max": 4.0,
+      "step": 0.25,
+      "help": "默认 2；越高越强调参考人物，也更可能带入参考姿势。原强度为 4。"
+    }
+  },
+  "profiles": {
+    "moody_krea2_simple": {
+      "label": "Krea2 Simple",
+      "fields": [
+        "refine_steps",
+        "upscale_factor",
+        "character_strength"
+      ]
+    },
+    "moody_krea2_4khd": {
+      "label": "Krea2 4KHD",
+      "fields": [
+        "output_long_edge",
+        "face_enabled",
+        "tile_steps",
+        "tile_strength",
+        "face_steps",
+        "face_strength",
+        "character_strength"
+      ]
+    },
+    "moody_krea2_i2i_4khd": {
+      "label": "Krea2 图片重绘 4KHD",
+      "fields": [
+        "output_long_edge",
+        "face_enabled",
+        "tile_steps",
+        "tile_strength",
+        "face_steps",
+        "face_strength",
+        "character_strength"
+      ]
+    },
+    "moody_zit_simple": {
+      "label": "ZIT 双阶段",
+      "fields": [
+        "zit_scale"
+      ]
+    },
+    "qwen": {
+      "label": "Qwen Image 2.1",
+      "fields": []
+    },
+    "ray": {
+      "label": "Ray Qwen Image 2.1",
+      "fields": []
+    },
+    "moody_krea2_rain_city": {
+      "label": "雨城飞鸟 · Cutie（基础版）",
+      "fields": [
+        "character_strength"
+      ]
+    }
+  },
+  "models": {
+    "cutie": {
+      "steps": 8,
+      "cfg": 1,
+      "sampler": "euler_ancestral",
+      "scheduler": "beta",
+      "refine_strength": 0.33,
+      "simple_mode": "standard"
+    },
+    "mix_v8": {
+      "steps": 8,
+      "cfg": 1,
+      "sampler": "euler_ancestral",
+      "scheduler": "beta",
+      "refine_strength": 0.39,
+      "simple_mode": "refine"
+    },
+    "pro_mix": {
+      "steps": 9,
+      "cfg": 1,
+      "sampler": "dpmpp_2m_sde",
+      "scheduler": "beta"
+    },
+    "qwen": {
+      "steps": 30,
+      "cfg": 1,
+      "sampler": "euler",
+      "scheduler": "simple"
+    },
+    "ray": {
+      "steps": 25,
+      "cfg": 2,
+      "sampler": "euler_ancestral",
+      "scheduler": "simple"
+    }
+  }
+}

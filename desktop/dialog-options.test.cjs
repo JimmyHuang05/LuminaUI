@@ -1,0 +1,5 @@
+const {test}=require('node:test');const assert=require('node:assert/strict');const {normalize}=require('./dialog-options.cjs');
+test('closing a canvas defaults to retaining it',()=>{const options=normalize({type:'question',buttons:['保留画布','关闭画布'],danger:true});assert.equal(options.defaultId,0);assert.equal(options.cancelId,0);assert.equal(options.primaryId,1);assert.equal(options.danger,true);});
+test('invalid button indexes cannot bypass safe defaults',()=>{const options=normalize({buttons:['取消','继续'],defaultId:99,cancelId:-1,primaryId:'bad'});assert.equal(options.defaultId,0);assert.equal(options.cancelId,0);assert.equal(options.primaryId,1);});
+test('long plain text and unicode are preserved',()=>{const text='关闭“产品 <img> 构图”？'.repeat(80);assert.equal(normalize({message:text}).message,text);});
+test('unknown types and sizes normalize',()=>{const value=normalize({type:'unknown',size:'unknown',buttons:[]});assert.equal(value.type,'info');assert.equal(value.size,'medium');assert.deepEqual(value.buttons,['知道了']);});
