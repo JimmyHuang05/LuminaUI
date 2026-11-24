@@ -1,27 +1,27 @@
 <!doctype html>
 <html lang="zh-CN"><head><script>location.replace((location.protocol==='file:'?'resources.html':'/resources')+'?view=output');</script><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>输出库 · LuminaUI</title>
-<style>:root{color-scheme:dark;font-family:system-ui,"Microsoft YaHei",sans-serif;background:#151515;color:#e8e7e3}
+<style>:root{color-scheme:dark;font-family:system-ui,"Microsoft YaHei",sans-serif;background:var(--day-canvas,#151515);color:var(--day-ink,#e8e7e3)}
 *{box-sizing:border-box}
 body{margin:0}
 a{color:inherit;text-decoration:none}
-button,input{font:inherit;color:inherit;background:#242424;border:1px solid #444;border-radius:6px;padding:10px 14px}
+button,input{font:inherit;color:inherit;background:var(--day-surface,#242424);border:1px solid var(--day-line,#444);border-radius:6px;padding:10px 14px}
 button{cursor:pointer}
 button:disabled{opacity:.4;cursor:default}
 button:focus-visible,a:focus-visible{outline:2px solid #c8b99b;outline-offset:3px}
-header{padding:24px 4vw;border-bottom:1px solid #333;display:flex;justify-content:space-between;gap:20px}
-nav{display:flex;gap:24px;color:#aaa;font-size:14px}
+header{padding:24px 4vw;border-bottom:1px solid var(--day-line,#333);display:flex;justify-content:space-between;gap:20px}
+nav{display:flex;gap:24px;color:var(--day-secondary,#aaa);font-size:14px}
 main{padding:36px 4vw}
 .eyebrow{color:#a69b87;font-size:10px;letter-spacing:3px}
 h1{font-weight:400;font-size:38px;margin:10px 0}
-p{color:#999;font-size:13px}
+p{color:var(--day-secondary,#999);font-size:13px}
 .toolbar{display:flex;gap:12px;margin:26px 0}
 input{flex:1;max-width:600px}
 #grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));grid-auto-rows:8px;gap:18px;align-items:start}
-.card{display:inline-block;width:100%;padding:0;margin:0;overflow:hidden;align-self:start;text-align:left;border-color:#303030}
-.card img{display:block;width:100%;height:auto;min-height:80px;background:#202020}
+.card{display:inline-block;width:100%;padding:0;margin:0;overflow:hidden;align-self:start;text-align:left;border-color:var(--day-line,#303030)}
+.card img{display:block;width:100%;height:auto;min-height:80px;background:var(--day-surface,#202020)}
 .caption{padding:12px;display:block}
 .caption strong{font-size:13px;font-weight:500;display:block}
-.caption small{display:block;color:#999;font-size:11px;margin-top:6px}
+.caption small{display:block;color:var(--day-secondary,#999);font-size:11px;margin-top:6px}
 #more{display:block;margin:24px auto}
 #status{padding:10px 0}
 dialog::backdrop{background:#000c}
@@ -31,7 +31,7 @@ nav{gap:12px}
 main{padding:24px 18px}
 #grid{grid-template-columns:repeat(auto-fill,minmax(140px,1fr))}
 }
-</style><link rel="stylesheet" href="/studio-shell.css"><script src="/studio-shell.js" defer></script></head><body data-studio-page="generated">
+</style><link rel="stylesheet" href="/studio-shell.css"><script src="/studio-shell.js" defer></script><link rel="stylesheet" href="/appearance.css"></head><body data-studio-page="generated">
 <header><a href="/">LuminaUI</a><nav><a href="/workbench">工作台</a><a href="/resources">提示词库</a></nav></header>
 <main><div class="eyebrow">THE IMAGE ARCHIVE</div><h1>输出库</h1><p>全部历史生成图片 · 最新优先 · 查看当次提示词</p><div class="toolbar"><input id="search" type="search" aria-label="搜索生成图片" placeholder="搜索标题、提示词、文件名或提示词 ID"><button id="refresh">刷新</button></div><p id="count"></p><div id="status" role="status"></div><section id="grid" aria-label="全部生成图片"></section></main>
 <dialog id="detail" class="lumina-detail" aria-labelledby="title">

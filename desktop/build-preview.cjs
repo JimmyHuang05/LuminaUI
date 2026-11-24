@@ -29,6 +29,7 @@ for (const name of new Set(Object.values(routes))) {
   let html=fs.readFileSync(path.join(source,name),'utf8');
   html=html.replace(/(src|href)="\/([^"\n]*)"/g,(_,attr,tail)=>{const [pathname,...query]=tail.split('?');return `${attr}="${routes['/'+pathname] || pathname}${query.length?'?'+query.join('?'):''}"`;});
   html=html.replace(/<head>/i,'<head><script src="preview-fixtures.js"></script><script src="preview-adapter.js"></script>');
+  html=html.replace('href="appearance.css">','href="appearance.css" media="not all"><script>applyPreviewAppearance(document.currentScript.previousElementSibling)</script>');
   fs.writeFileSync(path.join(output,name),html);
 }
 console.log('Web UI preview synced: 7 pages; original styles and layout retained.');

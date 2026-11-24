@@ -1,5 +1,14 @@
 (() => {
   'use strict';
+  window.applyPreviewAppearance = stylesheet => {
+    let mode = new URLSearchParams(location.search).get('appearance');
+    const valid = ['light','dark','system'].includes(mode);
+    try {
+      if (valid) localStorage.setItem('lumina.preview.appearance', mode);
+      else mode = localStorage.getItem('lumina.preview.appearance');
+    } catch {}
+    stylesheet.media = mode === 'light' ? 'all' : mode === 'system' ? '(prefers-color-scheme: light)' : 'not all';
+  };
   const note='桌面 UI 预览 · 功能暂未接入';
   window.fetch=async (input, options={}) => {
     const raw=typeof input==='string'?input:input.url;

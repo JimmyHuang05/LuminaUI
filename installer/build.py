@@ -11,11 +11,11 @@ OUT = ROOT / '.runtime/dist'
 def build():
     OUT.mkdir(parents=True, exist_ok=True)
     with zipfile.ZipFile(OUT / 'app.zip', 'w', zipfile.ZIP_DEFLATED) as bundle:
-        files = ['Start-Lumina.ps1', 'launch_qwen.py', 'requirements.txt',
-                 'start_desktop.bat', 'desktop/lumina.ico', 'README.md']
+        files = ['Start-Lumina.ps1', 'First-Run.ps1', 'first-run.html', 'canvas-intro.css', 'canvas-intro.js', 'docs/images/glass-study.jpg', 'docs/images/qwen-studio.jpg', 'launch_qwen.py', 'requirements.txt',
+                 'start_desktop.bat', 'desktop/lumina.ico', 'README.md', 'webui/appearance.css']
         listing = subprocess.check_output(['git', 'ls-files', '-z', 'webui', 'workflows', 'docs/images'], cwd=ROOT)
         files.extend(name for name in listing.decode().split('\0') if name)
-        for name in files:
+        for name in dict.fromkeys(files):
             bundle.write(ROOT / name, name)
     (OUT / 'install.ps1').write_bytes((ROOT / 'installer/install.ps1').read_bytes())
     exe = OUT / 'LuminaUI-Qwen21-Setup.exe'

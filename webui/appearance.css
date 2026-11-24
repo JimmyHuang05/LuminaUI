@@ -1,0 +1,50 @@
+/* Loaded for the light appearance only. Keep artwork and image overlays in their native colors. */
+:root:root {
+  --day-canvas:#f4f4f2; --day-surface:#fff; --day-control:#eeefed;
+  --day-selected:#d9e3ed; --day-action:#34383e; --day-inverse:#fff;
+  --day-ink:#26292d; --day-secondary:#565d65;
+  --day-line:#d6d9db; --day-line-strong:#87919b;
+  color-scheme:light; color:#292a2c; background:#f6f5f2;
+  --bg:#f6f5f2; --panel:#fff; --muted:#65666a; --line:#d9d8d5; --accent:#55585d;
+  --studio-bg:var(--bg); --studio-text:#292a2c; --studio-control:#eeedea;
+  --studio-muted:var(--muted); --studio-line:var(--line);
+  --lumina-bg:var(--day-canvas); --lumina-panel:var(--day-surface);
+  --lumina-text:var(--day-ink); --lumina-muted:var(--day-secondary); --lumina-line:var(--day-line);
+}
+html body { color:#292a2c; background:var(--bg); }
+html body :is(h1,h2,h3,h4,.wordmark,.brand,.studio-brand,.studio-breadcrumb,.shortcuts b,.prompt-copy b,.device-name,.gallery-title h2) { color:#292a2c; }
+html body :is(.header-tools,.entry-icon,.eyebrow,.queue-line,.text-link,.micro,.device-label,.device-meta,.collection-count,.empty,.shortcuts small,.empty a,footer) { color:#646468; }
+html body :is(.masthead,.studio-topbar,.hardware,.shortcuts a,.settings-nav,.card,.toolbar,.studio-tools,.section-heading,.device,.recent-panel) { border-color:var(--line); }
+html body :is(dialog,.card,.settings-nav,.studio-tools input,.studio-tools select,.page input,.page select,.page textarea) { color:#292a2c; background-color:#fff; border-color:var(--line); }
+body[data-lumina-page="home"] :is(.primary,.primary span) { color:white; background:#28292c; }
+body[data-lumina-page="home"] .image-grid>.empty { background:#eeedea; border-color:var(--line); }
+body[data-lumina-page="home"] .image-grid>.empty::before { color:#aaa8a4; }
+body[data-lumina-page="home"] .image-card { background:#e6e5e2; }
+body[data-lumina-page="home"] .quiet { color:#505154; }
+body[data-lumina-page="workbench"] :is(header,.sidebar,.settings,.canvas-panel,.panel,.history,.system-panel,.queue-panel,.run-toolbar,.view-toolbar,.editor-tools,.toolbar h3,.settings-title,.properties-tabs,.history-toolbar,.preview,.batch-display) {
+  background-color:#f6f5f2; color:#303135; border-color:#d6d5d2;
+}
+body[data-lumina-page="workbench"] :is(.sidebar .tab,.settings label,.settings small,.settings summary,.properties-tabs span,.toolbar,.muted,.badge) { color:#51545a; }
+body[data-lumina-page="workbench"] :is(.tab.active,.properties-tabs span,.upload,button,input,select,textarea,.simple-panel select,.simple-panel textarea) {
+  color:#303135; background-color:#ebeae7; border-color:#cdccc8;
+}
+body[data-lumina-page="workbench"] :is(#submit,.primary) { background-color:#343539; color:white; }
+body.studio-page :is(.studio-heading,.studio-topbar,.studio-tools,.studio-footer) { background-color:var(--bg); color:var(--studio-text); }
+body.studio-page :is(button,input,select,textarea,.studio-home,.studio-content .toolbar) { background-color:var(--studio-control); color:var(--studio-text); border-color:var(--line); }
+body:has(.settings-nav) :is(button,input,select,textarea) { background:#eeedea; color:#292a2c; border-color:var(--line); }
+body:has(.settings-nav) :is(button.active,.primary) { background:#353538; color:white; }
+body[data-lumina-page="workbench"] .generation-placeholder { background:#f0f1ef; color:var(--day-secondary); }
+body[data-lumina-page="workbench"] .canvas-panel { background-image:none; }
+body[data-lumina-page="workbench"] :is(.rail-brand,.rail-brand svg) { color:var(--day-ink); }
+body :is(button,input,select,textarea,a,summary):focus-visible { outline:2px solid #376a98; outline-offset:2px; }
+body ::placeholder { color:#646a72; opacity:1; }
+body[data-lumina-page="home"] :is(.text-link,.collection-count,.prompt-copy small,.device-label,.device-meta,.queue-line,.micro) { color:var(--day-secondary); }
+body:has(.settings-nav) .settings-nav button.active span { color:var(--day-inverse); }
+body[data-lumina-page="workbench"] .resource-tabs button[aria-selected=true] { background:var(--day-selected); border-color:#a4b5c5; }
+body[data-lumina-page="workbench"] .sidebar :is(button,.tab,.rail-button) {
+  background:transparent !important;
+}
+body[data-lumina-page="workbench"] .sidebar :is(button,.tab,.rail-button):hover { color:#31557b; }
+body[data-lumina-page="workbench"] .sidebar :is(.tab.active,.rail-button.active,[aria-expanded="true"],[aria-pressed="true"]) {
+  color:#31557b; box-shadow:inset 2px 0 #54789b;
+}

@@ -18,6 +18,11 @@
   async function run(button,action){button.disabled=true;try{await action();}catch(e){notify(e.message,true);}finally{button.disabled=false;}}
   function switchPage(){const key=location.hash.slice(1) in titles?location.hash.slice(1):'models';for(const node of document.querySelectorAll('.page'))node.hidden=node.id!==key;for(const b of document.querySelectorAll('[data-page]')){b.classList.toggle('active',b.dataset.page===key);b.setAttribute('aria-current',b.dataset.page===key?'page':'false');}[$('page-title').textContent,$('page-description').textContent]=titles[key];}
   document.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>location.hash=b.dataset.page);window.addEventListener('hashchange',switchPage);switchPage();
+  if(location.hash==='#pe'){
+    const section=new URLSearchParams(location.search).get('modelSection');
+    const target=section==='local'?$('local-drop'):section==='cloud'?$('add-pe'):null;
+    if(target){target.scrollIntoView({block:'center'});target.focus({preventScroll:true});}
+  }
   document.addEventListener('input',e=>{const form=e.target.closest('form');if(form){dirty.add(form.id);form.dataset.dirty='true';}});
   window.addEventListener('beforeunload',e=>{if(dirty.size){e.preventDefault();e.returnValue='';}});
   const clean=form=>{dirty.delete(form.id);delete form.dataset.dirty;};

@@ -45,7 +45,7 @@ def run():
             missing = {node['class_type'] for node in graph.values()} - nodes.keys()
             if missing:
                 raise RuntimeError(f'Missing workflow nodes: {sorted(missing)}')
-            print('Qwen-Image-2.1 is ready: http://127.0.0.1:18290/workbench', flush=True)
+            print('Qwen-Image-2.1 is ready: http://127.0.0.1:18290/', flush=True)
             sys.path.insert(0, str(ROOT / 'webui'))
             runpy.run_path(str(ROOT / 'webui/server.py'), run_name='__main__')
         finally:

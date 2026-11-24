@@ -15,7 +15,7 @@
   const style = document.createElement('style');
   style.textContent='.workflow-output-controls{grid-column:1/-1}.workflow-output-controls:empty{display:none}.workflow-stage-controls:empty{display:none}.workflow-control-check{display:flex;align-items:center;gap:9px}.workflow-control-check input{width:16px!important;min-height:16px!important}.workflow-stage-controls .field{margin:14px 0}.workflow-output-controls .field{margin:14px 0 0}';
 
-  style.textContent+=`.simple-panel #simple-advanced:has(>.workflow-parameters:not([hidden])){padding:0!important;border:0!important;border-radius:0!important;background:transparent;margin:0 0 20px!important}.workflow-parameters.output-settings{margin:0;padding:14px;border:1px solid #353535;border-radius:8px;background:#1b1b1b}.workflow-parameters>.sampling-fields{margin-top:0}.workflow-parameters>.workflow-stage-controls:not(:empty){margin-top:14px;padding-top:2px;border-top:1px solid #303030}`;
+  style.textContent+=`.simple-panel #simple-advanced:has(>.workflow-parameters:not([hidden])){padding:0!important;border:0!important;border-radius:0!important;background:transparent;margin:0 0 20px!important}.workflow-parameters.output-settings{margin:0;padding:14px;border:1px solid var(--day-line,#353535);border-radius:8px;background:var(--day-canvas,#1b1b1b)}.workflow-parameters>.sampling-fields{margin-top:0}.workflow-parameters>.workflow-stage-controls:not(:empty){margin-top:14px;padding-top:2px;border-top:1px solid var(--day-line,#303030)}`;
   document.head.append(style);
 
   function context() {

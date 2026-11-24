@@ -9,6 +9,14 @@ $archiveHash = '6a5255c7ec01fdc54bdbd8e4507073cf6acda2fbeea74ae1829a50681af5fac6
 $archiveSize = 2085169944
 $utf8 = New-Object System.Text.UTF8Encoding($false)
 
+if (!$PrepareOnly -and !$NoBrowser -and !(Test-Path "$runtime/intro-complete")) {
+    & "$root/First-Run.ps1"
+    return
+}
+function Set-Phase([string]$Name) {
+    [IO.File]::WriteAllText("$runtime/prepare-phase", $Name, $utf8)
+}
+
 function Get-VerifiedFile($Url, $Path, [long]$Size, $Hash) {
     $stamp = "$Path.verified"
     if (Test-Path -LiteralPath $Path -PathType Leaf) {
@@ -49,11 +57,12 @@ try {
     $lock = [IO.File]::Open((Join-Path $runtime 'startup.lock'),'OpenOrCreate','ReadWrite','None')
 } catch [IO.IOException] {
     try { $info = Invoke-RestMethod 'http://127.0.0.1:18290/api/config' -TimeoutSec 2 } catch { $info = $null }
-    if ($info.edition -eq 'qwen21' -and !$PrepareOnly -and !$NoBrowser) { Start-Process 'http://127.0.0.1:18290/workbench' }
+    if ($info.edition -eq 'qwen21' -and !$PrepareOnly -and !$NoBrowser) { Start-Process 'http://127.0.0.1:18290/' }
     else { Write-Host 'LuminaUI is already preparing or running. Check its first launch window.' }
     exit 0
 }
 try {
+    Set-Phase 'runtime'
     $python = Join-Path $bundle 'ComfyUI_windows_portable/python_embeded/python.exe'
     if (!(Test-Path $python)) {
         $archive = Join-Path $runtime 'downloads/comfy-v0.46.0.7z'
@@ -61,10 +70,12 @@ try {
         $stage = Join-Path $runtime 'extract-v0.46.0'
         [IO.Directory]::CreateDirectory($stage) | Out-Null
         Write-Host 'Preparing Python, PyTorch and ComfyUI...'
+        Set-Phase 'extract'
         & tar.exe -xf $archive -C $stage
         if ($LASTEXITCODE -ne 0 -or !(Test-Path "$stage/ComfyUI_windows_portable/ComfyUI/main.py")) { throw 'Runtime extraction failed. Check free space and retry.' }
         [IO.Directory]::Move($stage,$bundle)
     }
+    Set-Phase 'cuda'
     & $python -s -c "import torch; assert torch.cuda.is_available(), 'CUDA unavailable. Check the NVIDIA driver.'; print(torch.cuda.get_device_name())"
     if ($LASTEXITCODE -ne 0) { throw 'CUDA runtime check failed.' }
     & $python -s -c 'import aiohttp, PIL, numpy, psutil, safetensors, scipy'
@@ -76,9 +87,11 @@ try {
     foreach ($model in $manifest) {
         $path = $model.file.Replace('\','/')
         $relative = $path.Substring('ComfyUI/models/'.Length)
+        Set-Phase $relative
         Get-VerifiedFile "https://huggingface.co/Comfy-Org/Qwen-Image-2.1/resolve/$($model.revision)/$relative" (Join-Path $root $path) $model.bytes $model.sha256
     }
     if (!$PrepareOnly) {
+        Set-Phase 'engine'
         $options = @()
         if (!$NoBrowser) { $options += '--open' }
         & $python -s "$root/launch_qwen.py" @options

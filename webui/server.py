@@ -1020,9 +1020,22 @@ async def lifecycle(app):
     await asyncio.gather(*tasks,return_exceptions=True)
     await app['session'].close()
 
+async def appearance_css(request):
+    try:
+        choice = (ROOT / '.runtime/appearance').read_text(encoding='utf-8').strip()
+    except FileNotFoundError:
+        choice = 'dark'
+    css = ''
+    if choice in ('light', 'system'):
+        css = (HERE / 'appearance.css').read_text(encoding='utf-8')
+        if choice == 'system':
+            css = '@media (prefers-color-scheme: light) {' + css + '}'
+    return web.Response(text=css, content_type='text/css', headers={'Cache-Control':'no-store'})
+
 if __name__=='__main__':
     app=web.Application(middlewares=[guard],client_max_size=32*1024*1024)
     app.cleanup_ctx.append(lifecycle)
+    app.router.add_get('/appearance.css',appearance_css)
     app.router.add_get('/api/hardware',hardware)
     app.router.add_get('/api/dashboard',dashboard_summary)
     app.router.add_get('/home.css',lambda request:web.FileResponse(HERE/'home.css',headers={'Cache-Control':'no-cache'}))
@@ -1103,5 +1116,5 @@ if __name__=='__main__':
     app.add_routes([web.get('/',index),web.get('/api/config',config),web.get('/api/status',status),web.post('/api/upload',upload),web.post('/api/annotation',upload_annotation),web.post('/api/mask',upload_mask),web.post('/api/generate',generate),web.post('/api/enhance-edit',enhance_edit),web.post('/api/release',release),web.get('/image',image)])
     if '--open' in sys.argv:
         import threading
-        threading.Timer(1,lambda:webbrowser.open('http://127.0.0.1:18290/workbench')).start()
+        threading.Timer(1,lambda:webbrowser.open('http://127.0.0.1:18290/')).start()
     web.run_app(app,host='127.0.0.1',port=18290)

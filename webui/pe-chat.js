@@ -225,10 +225,41 @@
     }
     controls();
   }
+  let modelGuideShown=false;
+  function guideModelSetup(){
+    const cloudReady=providers.some(p=>(p.kind==='cloud'||p.id==='deepseek')&&p.available);
+    const local=providers.find(p=>(p.kind==='local'||p.id==='qwen')&&p.available);
+    if(cloudReady||modelGuideShown||(local&&local.id===readLocal('lumina.pe-chat.provider')))return;
+    modelGuideShown=true;
+    const dialog=document.createElement('dialog');
+    dialog.className='pe-session-dialog pe-setup-dialog';
+    dialog.setAttribute('aria-labelledby','pe-setup-title');
+    dialog.innerHTML='<h2 id="pe-setup-title">选择对话模型</h2><p>尚未配置云端 API Key。你可以连接云端服务，也可以使用本地语言模型。</p><div class="pe-setup-options"></div>';
+    const options=dialog.querySelector('.pe-setup-options');
+    function settings(section){
+      const base=location.protocol==='file:'?'settings.html':'/settings';
+      location.assign(base+'?modelSection='+section+'#pe');
+    }
+    options.append(button('前往设置填写 API Key',()=>settings('cloud')),
+      button(local?'使用本地模型 · '+(local.name||local.label):'设置本地语言模型',()=>{
+        if(!local){settings('local');return;}
+        selectedProvider=local.id;writeLocal('lumina.pe-chat.provider',local.id);
+        renderModels();dialog.close();input.focus();
+      }));
+    if(!local){
+      const hint=document.createElement('small');
+      hint.textContent='本地对话需要 llama-server 运行组件和 GGUF 模型文件。';
+      options.append(hint);
+    }
+    dialog.append(button('稍后再说',()=>dialog.close()));
+    document.body.append(dialog);
+    dialog.addEventListener('close',()=>dialog.remove(),{once:true});
+    dialog.showModal();
+  }
   window.addEventListener('focus',()=>loadModel());
   async function loadModel(){
     try{const data=await apiCall('GET',undefined,'?info=1');providers=data.providers||[{id:'deepseek',label:'DeepSeek',model:data.model||'',available:!!data.configured,description:'云端'},{id:'qwen',label:'Qwen',model:'Qwen3.5-4B',available:false,description:'后端更新后可用'}];
-      if(!providers.some(p=>p.id===selectedProvider&&p.available))selectedProvider=providers.find(p=>p.id===data.default_id&&p.available)?.id||providers.find(p=>p.available)?.id||'';renderModels();
+      if(!providers.some(p=>p.id===selectedProvider&&p.available))selectedProvider=providers.find(p=>p.id===data.default_id&&p.available)?.id||providers.find(p=>p.available)?.id||'';renderModels();guideModelSetup();
     }catch{panel.querySelector('.pe-model').textContent='模型离线';}
   }
   document.addEventListener('pointerdown',e=>{if(!modelPicker.contains(e.target))modelPicker.open=false;});
